@@ -1,0 +1,3683 @@
+{
+  "version": "0.1",
+  "status": "content-architecture-draft",
+  "readDate": "2026-10-22",
+  "notes": [
+    "original-source-order-is-preserved",
+    "inventories-overlap-and-are-not-unique-term-counts",
+    "representativeTerms-is-not-a-complete-transcription",
+    "term-kinds-and-domains-are-project-editorial-proposals"
+  ],
+  "sources": [
+    {
+      "id": "dictionary-root",
+      "title": "Vibe Coding 词典",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/O8miwl5w4i2KoBkxigTc624rnSe",
+      "parentId": null,
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "目录入口，未见实质正文",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "motion-parent",
+      "title": "Vibe Coding 网页动效词典",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/RTWRwuy25irO3SkgprAcVjKZnJc",
+      "parentId": "dictionary-root",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "标题页，未见实质正文",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "motion-upper",
+      "title": "上篇：准确描述页面交互",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/EYCPwm3HwiqNG9kNHYtcShQpniT",
+      "parentId": "motion-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "概念、工具、十类触发及编号1—16",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "motion-middle",
+      "title": "中篇：视差滚动、磁吸按钮与鼠标跟随",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/P98Rwkb7hiDxJqkZAv0cCOVgnPc",
+      "parentId": "motion-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "编号17—36；原文Character reveal序号显示为1",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "motion-lower",
+      "title": "下篇：组件反馈、布局过渡与页面转场",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/WWKuwcQEziY6PpkFvQTcgHf0nKd",
+      "parentId": "motion-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "编号37—56，含UX与素材记录方法",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-parent",
+      "title": "Vibe Coding 前端交互效果术语手册",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/ItiOwD9UriaW6ckA4Scc8BCinig",
+      "parentId": "dictionary-root",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "使用说明及十类目录",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-01",
+      "title": "第一部分：视觉与 Motion",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/LciHwk1DZiK73oke8fwcTM2vnse",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "9个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-02",
+      "title": "第二部分：基础组件交互",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/EyDnwTiJkieK9okziCBcWdQwn4b",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "15个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-03",
+      "title": "第三部分：复杂 Web App",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/BOJLwlEcgiF8eokWeTqcIdKEnRg",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "25个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-04",
+      "title": "第四部分：专业生产力工具",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/ZVkOwJh7aiUSI0kcXZ1c6qghnBh",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "9个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-05",
+      "title": "第五部分：Dashboard / Data",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/ZnoFwkIEfiBqetkX8azc123cn5f",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "4个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-06",
+      "title": "第六部分：移动端与多设备",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/FnHPwClM4iabMtkaSEvcAQtInTw",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "7个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-07",
+      "title": "第七部分：AI Native / Agent / Vibe Coding",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/Avq5wf5KGir9W1kGvkzcYjHenTf",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "17个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-08",
+      "title": "第八部分：异常、边界与工程状态",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/W9kqwj9IFiuv0ykYcoLc4CrqnPf",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "8个编号主题；含提示词九要素、时长与幅度参考表",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-09",
+      "title": "第九部分：Accessibility / Performance",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/IVI9wqnb4i13iek17gvcOdi9nEf",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "4个编号主题",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "handbook-10",
+      "title": "第十部分：Prompt 与交互验收",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/AHjwwMECziD0kIkwkWocdfRhn2d",
+      "parentId": "handbook-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text-and-table-screenshots",
+      "note": "2个编号主题：63、100",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "visual-parent",
+      "title": "Vibe Coding 视觉词典",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/KhvTwONd9i7z3ekdaRTcn5NSnsg",
+      "parentId": "dictionary-root",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "标题页，未见实质正文",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "visual-upper",
+      "title": "上篇：布局、页面结构、导航与常用组件",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/Cigowelr0i5jQykFVYvcROFknMe",
+      "parentId": "visual-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "4章、40个编号条目及综合示例",
+      "reusePermission": "not-confirmed"
+    },
+    {
+      "id": "visual-lower",
+      "title": "下篇：滚动动作、提示加载、视觉风格与高级效果",
+      "url": "https://qqs7y1hozd1.feishu.cn/wiki/FSM4wgrkUin3wtk8TX1clk9BnQb",
+      "parentId": "visual-parent",
+      "readDate": "2026-10-22",
+      "readingStatus": "read-to-end",
+      "method": "browser-visible-text",
+      "note": "4章、40个编号条目及综合示例",
+      "reusePermission": "not-confirmed"
+    }
+  ],
+  "domains": [
+    "structure",
+    "style",
+    "motion",
+    "component",
+    "workspace",
+    "data",
+    "ai",
+    "state",
+    "device",
+    "quality"
+  ],
+  "handbookTopics": [
+    {
+      "id": "handbook.001",
+      "number": 1,
+      "sourceId": "handbook-01",
+      "title": "页面进入与基础动效",
+      "domains": [
+        "motion"
+      ],
+      "representativeTerms": [
+        "Fade In",
+        "Slide Up",
+        "Scale In",
+        "Spring In",
+        "Stagger Reveal",
+        "Mask Reveal",
+        "Page Transition"
+      ],
+      "projectTreatment": "区分首次进入、再次进入和离开。"
+    },
+    {
+      "id": "handbook.002",
+      "number": 2,
+      "sourceId": "handbook-01",
+      "title": "Scroll 滚动交互",
+      "domains": [
+        "motion"
+      ],
+      "representativeTerms": [
+        "Smooth Scroll",
+        "Anchor Scroll",
+        "Scroll Reveal",
+        "Scroll Snap",
+        "Horizontal Scroll",
+        "Parallax",
+        "Sticky",
+        "Infinite Scroll",
+        "Scroll Spy"
+      ],
+      "projectTreatment": "区分触发、联动、定位与数据加载。"
+    },
+    {
+      "id": "handbook.003",
+      "number": 3,
+      "sourceId": "handbook-01",
+      "title": "Hover 悬停反馈",
+      "domains": [
+        "motion"
+      ],
+      "representativeTerms": [
+        "Hover Lift",
+        "Image Zoom",
+        "Magnetic",
+        "Tilt",
+        "Spotlight",
+        "Border Glow",
+        "Hover Preview"
+      ],
+      "projectTreatment": "补充键盘反馈与触屏替代。"
+    },
+    {
+      "id": "handbook.004",
+      "number": 4,
+      "sourceId": "handbook-01",
+      "title": "Cursor 鼠标指针交互",
+      "domains": [
+        "motion"
+      ],
+      "representativeTerms": [
+        "Custom Cursor",
+        "Cursor Label",
+        "Cursor Scale",
+        "Blend Cursor",
+        "Grab",
+        "Grabbing",
+        "Disabled Cursor"
+      ],
+      "projectTreatment": "不能只通过光标外观表达功能。"
+    },
+    {
+      "id": "handbook.005",
+      "number": 5,
+      "sourceId": "handbook-01",
+      "title": "Button 按钮交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Press",
+        "Ripple",
+        "Loading Button",
+        "Success Button",
+        "Error Button",
+        "Split Button",
+        "Hold to Confirm",
+        "Copy Feedback",
+        "FAB"
+      ],
+      "projectTreatment": "按下反馈、异步进度和完成结果分开。"
+    },
+    {
+      "id": "handbook.006",
+      "number": 6,
+      "sourceId": "handbook-02",
+      "title": "Component State 组件状态",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "Default",
+        "Hover",
+        "Active",
+        "Pressed",
+        "Focus",
+        "Selected",
+        "Disabled",
+        "Read Only",
+        "Loading",
+        "Success",
+        "Error",
+        "Warning"
+      ],
+      "projectTreatment": "Active、Pressed与Selected分别定义。"
+    },
+    {
+      "id": "handbook.007",
+      "number": 7,
+      "sourceId": "handbook-02",
+      "title": "Navigation 导航",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Sticky Header",
+        "Mega Menu",
+        "Tabs",
+        "Breadcrumb",
+        "Sidebar",
+        "Drawer Navigation",
+        "Bottom Navigation",
+        "Command Palette"
+      ],
+      "projectTreatment": "导航状态与当前位置应清晰。"
+    },
+    {
+      "id": "handbook.008",
+      "number": 8,
+      "sourceId": "handbook-02",
+      "title": "Form 表单交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Focus Ring",
+        "Floating Label",
+        "Inline Validation",
+        "Character Counter",
+        "Password Strength",
+        "Autocomplete",
+        "OTP",
+        "Autosave",
+        "Multi-step Form"
+      ],
+      "projectTreatment": "校验时机、保留输入和提交状态一起描述。"
+    },
+    {
+      "id": "handbook.009",
+      "number": 9,
+      "sourceId": "handbook-03",
+      "title": "Search 搜索交互",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Instant Search",
+        "Suggestions",
+        "Recent Search",
+        "Highlight",
+        "Faceted Search",
+        "Search Empty",
+        "Search Loading"
+      ],
+      "projectTreatment": "输入响应、请求返回与结果选择分开。"
+    },
+    {
+      "id": "handbook.010",
+      "number": 10,
+      "sourceId": "handbook-03",
+      "title": "Filter 筛选交互",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Filter Chip",
+        "Multi-select Filter",
+        "Filter Drawer",
+        "Clear All",
+        "Result Count",
+        "Live Filter",
+        "Apply Filter"
+      ],
+      "projectTreatment": "即时生效和确认后生效不能混用。"
+    },
+    {
+      "id": "handbook.011",
+      "number": 11,
+      "sourceId": "handbook-02",
+      "title": "Modal 与浮层",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Modal",
+        "Drawer",
+        "Bottom Sheet",
+        "Popover",
+        "Tooltip",
+        "Context Menu",
+        "Confirm Dialog",
+        "Nested Dialog"
+      ],
+      "projectTreatment": "按模态性和内容可交互性区分。"
+    },
+    {
+      "id": "handbook.012",
+      "number": 12,
+      "sourceId": "handbook-02",
+      "title": "Toast 与反馈提示",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Toast",
+        "Snackbar",
+        "Alert",
+        "Banner",
+        "Inline Message",
+        "Success Message",
+        "Error Message"
+      ],
+      "projectTreatment": "按紧急程度、位置和是否需行动选择。"
+    },
+    {
+      "id": "handbook.013",
+      "number": 13,
+      "sourceId": "handbook-01",
+      "title": "Card 卡片交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Hover Card",
+        "Expandable Card",
+        "Selectable Card",
+        "Flip Card",
+        "Image Reveal",
+        "Card Actions",
+        "Card Link"
+      ],
+      "projectTreatment": "整卡链接与内部操作避免相互干扰。"
+    },
+    {
+      "id": "handbook.014",
+      "number": 14,
+      "sourceId": "handbook-01",
+      "title": "List 列表交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Row Hover",
+        "Expandable Row",
+        "Swipe Action",
+        "Reorder",
+        "Bulk Select",
+        "Load More",
+        "Virtual List"
+      ],
+      "projectTreatment": "渲染优化与真实加载行为分别记录。"
+    },
+    {
+      "id": "handbook.015",
+      "number": 15,
+      "sourceId": "handbook-02",
+      "title": "Table 表格交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Sticky Header",
+        "Sticky Column",
+        "Column Resize",
+        "Column Reorder",
+        "Sort",
+        "Multi-sort",
+        "Inline Edit",
+        "Row Selection",
+        "Column Visibility",
+        "Density",
+        "Virtual Table"
+      ],
+      "projectTreatment": "排序、编辑、选择和冻结规则都需明确。"
+    },
+    {
+      "id": "handbook.016",
+      "number": 16,
+      "sourceId": "handbook-02",
+      "title": "Pagination 分页",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Number Pagination",
+        "Simple Pagination",
+        "Page Size",
+        "Jump to Page",
+        "Infinite Scroll",
+        "Cursor Pagination"
+      ],
+      "projectTreatment": "页码导航与游标加载是不同策略。"
+    },
+    {
+      "id": "handbook.017",
+      "number": 17,
+      "sourceId": "handbook-03",
+      "title": "Drag & Drop 拖拽",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Drag Handle",
+        "Drag Preview",
+        "Drop Zone",
+        "Placeholder",
+        "Sortable",
+        "Cross-list Drag",
+        "Snap",
+        "Invalid Drop"
+      ],
+      "projectTreatment": "明确起点、合法目标、取消与替代操作。"
+    },
+    {
+      "id": "handbook.018",
+      "number": 18,
+      "sourceId": "handbook-03",
+      "title": "Resize 调整尺寸",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Resize Handle",
+        "Horizontal Resize",
+        "Vertical Resize",
+        "Min Size",
+        "Max Size",
+        "Collapse Threshold"
+      ],
+      "projectTreatment": "给出范围、阈值和尺寸保存规则。"
+    },
+    {
+      "id": "handbook.019",
+      "number": 19,
+      "sourceId": "handbook-08",
+      "title": "Loading 加载状态",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "Spinner",
+        "Skeleton",
+        "Shimmer",
+        "Progress Bar",
+        "Indeterminate",
+        "Circular Progress",
+        "Step Progress",
+        "Delayed Loading"
+      ],
+      "projectTreatment": "知道进度才显示确定型百分比。"
+    },
+    {
+      "id": "handbook.020",
+      "number": 20,
+      "sourceId": "handbook-08",
+      "title": "Empty 空状态",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "First-use Empty",
+        "Search Empty",
+        "Filter Empty",
+        "Permission Empty",
+        "Error Empty",
+        "Completed Empty"
+      ],
+      "projectTreatment": "不同原因的空状态提供不同下一步。"
+    },
+    {
+      "id": "handbook.021",
+      "number": 21,
+      "sourceId": "handbook-08",
+      "title": "Error 异常状态",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "404",
+        "403",
+        "500",
+        "Timeout",
+        "Network Error",
+        "Partial Failure",
+        "Retry",
+        "Fallback"
+      ],
+      "projectTreatment": "说明受影响范围并保留可用内容。"
+    },
+    {
+      "id": "handbook.022",
+      "number": 22,
+      "sourceId": "handbook-03",
+      "title": "File Upload 文件上传",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Click Upload",
+        "Drop Upload",
+        "Upload Queue",
+        "Upload Progress",
+        "Pause",
+        "Cancel",
+        "Retry",
+        "Validation",
+        "Processing"
+      ],
+      "projectTreatment": "传输完成不等于服务端处理完成。"
+    },
+    {
+      "id": "handbook.023",
+      "number": 23,
+      "sourceId": "handbook-03",
+      "title": "File Manager 文件管理",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "File Tree",
+        "Single Selection",
+        "Multi Selection",
+        "Rename",
+        "Move",
+        "Preview",
+        "Context Menu",
+        "Breadcrumb"
+      ],
+      "projectTreatment": "定义文件操作结果和失败反馈。"
+    },
+    {
+      "id": "handbook.024",
+      "number": 24,
+      "sourceId": "handbook-04",
+      "title": "Editor 编辑器交互",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Slash Menu",
+        "Bubble Menu",
+        "Block Editor",
+        "Block Handle",
+        "Insert",
+        "Duplicate",
+        "Markdown Shortcut",
+        "Mention",
+        "Inline Code",
+        "Autosave"
+      ],
+      "projectTreatment": "内容编辑状态与保存状态独立。"
+    },
+    {
+      "id": "handbook.025",
+      "number": 25,
+      "sourceId": "handbook-04",
+      "title": "Keyboard 键盘交互",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Shortcut",
+        "Command K",
+        "Escape",
+        "Enter",
+        "Arrow Navigation",
+        "Shift Selection",
+        "Delete",
+        "Undo"
+      ],
+      "projectTreatment": "快捷键依场景和输入焦点解释。"
+    },
+    {
+      "id": "handbook.026",
+      "number": 26,
+      "sourceId": "handbook-04",
+      "title": "Undo / Redo",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Undo",
+        "Redo",
+        "Undo Toast",
+        "Soft Delete",
+        "Restore",
+        "History"
+      ],
+      "projectTreatment": "撤销范围与可恢复时间要说明。"
+    },
+    {
+      "id": "handbook.027",
+      "number": 27,
+      "sourceId": "handbook-06",
+      "title": "Onboarding 新手引导",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Product Tour",
+        "Coachmark",
+        "Spotlight",
+        "Checklist",
+        "Progress",
+        "Skip",
+        "Restart"
+      ],
+      "projectTreatment": "可跳过并保留重新查看入口。"
+    },
+    {
+      "id": "handbook.028",
+      "number": 28,
+      "sourceId": "handbook-06",
+      "title": "Responsive 响应式交互",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Breakpoint",
+        "Sidebar to Drawer",
+        "Table to Card",
+        "Hover to Tap",
+        "Responsive Navigation",
+        "Responsive Grid",
+        "Modal to Sheet"
+      ],
+      "projectTreatment": "响应式是重排与交互变化。"
+    },
+    {
+      "id": "handbook.029",
+      "number": 29,
+      "sourceId": "handbook-06",
+      "title": "Mobile 手势",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Swipe",
+        "Pull to Refresh",
+        "Long Press",
+        "Pinch",
+        "Swipe Back",
+        "Draggable Sheet",
+        "Touch Feedback",
+        "Safe Area"
+      ],
+      "projectTreatment": "避免与浏览器和页面滚动手势冲突。"
+    },
+    {
+      "id": "handbook.030",
+      "number": 30,
+      "sourceId": "handbook-06",
+      "title": "Carousel 轮播",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Carousel",
+        "Swipe Carousel",
+        "Autoplay",
+        "Infinite Carousel",
+        "Pagination Dots",
+        "Peek",
+        "Center Mode"
+      ],
+      "projectTreatment": "提供方向、当前位置和暂停规则。"
+    },
+    {
+      "id": "handbook.031",
+      "number": 31,
+      "sourceId": "handbook-06",
+      "title": "Media 媒体交互",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Lightbox",
+        "Gallery",
+        "Zoom",
+        "Video Controls",
+        "Scrubber",
+        "Playback Speed",
+        "Picture in Picture",
+        "Fullscreen"
+      ],
+      "projectTreatment": "播放状态与媒体加载错误都需处理。"
+    },
+    {
+      "id": "handbook.032",
+      "number": 32,
+      "sourceId": "handbook-05",
+      "title": "Dashboard 数据看板",
+      "domains": [
+        "data"
+      ],
+      "representativeTerms": [
+        "KPI Card",
+        "Animated Counter",
+        "Date Filter",
+        "Global Filter",
+        "Drill Down",
+        "Cross Filter",
+        "Refresh Time",
+        "Comparison"
+      ],
+      "projectTreatment": "显示筛选范围与数据更新时间。"
+    },
+    {
+      "id": "handbook.033",
+      "number": 33,
+      "sourceId": "handbook-05",
+      "title": "Chart 图表交互",
+      "domains": [
+        "data"
+      ],
+      "representativeTerms": [
+        "Chart Tooltip",
+        "Crosshair",
+        "Legend",
+        "Data Highlight",
+        "Brush Zoom",
+        "Reset Zoom",
+        "Linked Hover",
+        "Animated Update"
+      ],
+      "projectTreatment": "单位、筛选和联动范围应可理解。"
+    },
+    {
+      "id": "handbook.034",
+      "number": 34,
+      "sourceId": "handbook-05",
+      "title": "Realtime 实时数据",
+      "domains": [
+        "data"
+      ],
+      "representativeTerms": [
+        "Live Update",
+        "New Item Marker",
+        "Connection State",
+        "Auto Refresh",
+        "Pause Update",
+        "Live Badge"
+      ],
+      "projectTreatment": "连接状态与新数据提示分别表现。"
+    },
+    {
+      "id": "handbook.035",
+      "number": 35,
+      "sourceId": "handbook-04",
+      "title": "Collaboration 实时协作",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Presence",
+        "Live Cursor",
+        "Selection Presence",
+        "Typing Indicator",
+        "Conflict",
+        "Sync",
+        "Versions"
+      ],
+      "projectTreatment": "多用户、冲突与同步不能只靠演示动画证明。"
+    },
+    {
+      "id": "handbook.036",
+      "number": 36,
+      "sourceId": "handbook-04",
+      "title": "Canvas 无限画布",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Pan",
+        "Zoom",
+        "Zoom to Fit",
+        "Minimap",
+        "Grid",
+        "Snap to Grid",
+        "Marquee Select",
+        "Alignment Guides",
+        "Auto Layout"
+      ],
+      "projectTreatment": "定义画布坐标、选择与导航行为。"
+    },
+    {
+      "id": "handbook.037",
+      "number": 37,
+      "sourceId": "handbook-04",
+      "title": "Workflow Node 节点交互",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Node Drag",
+        "Port",
+        "Edge Connect",
+        "Edge Hover",
+        "Node Select",
+        "Collapse",
+        "Duplicate",
+        "Delete",
+        "Edge Animation"
+      ],
+      "projectTreatment": "连接合法性与执行状态独立。"
+    },
+    {
+      "id": "handbook.038",
+      "number": 38,
+      "sourceId": "handbook-07",
+      "title": "AI Chat 聊天交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Streaming",
+        "Stop",
+        "Regenerate",
+        "Edit Prompt",
+        "Retry",
+        "Copy",
+        "Reaction",
+        "Follow-up",
+        "Scroll to Bottom",
+        "Unread Marker"
+      ],
+      "projectTreatment": "保留中断内容并区分重试与重新生成。"
+    },
+    {
+      "id": "handbook.039",
+      "number": 39,
+      "sourceId": "handbook-07",
+      "title": "AI Prompt 输入交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Auto-expand Input",
+        "Prompt Suggestion",
+        "Slash Command",
+        "Mention",
+        "Attachment",
+        "Prompt History",
+        "Voice Input",
+        "Model Selector"
+      ],
+      "projectTreatment": "输入、附件和上下文状态一起明确。"
+    },
+    {
+      "id": "handbook.040",
+      "number": 40,
+      "sourceId": "handbook-07",
+      "title": "Agent 执行状态",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Idle",
+        "Planning",
+        "Running",
+        "Tool Calling",
+        "Waiting",
+        "Approval",
+        "Success",
+        "Failed",
+        "Cancelled",
+        "Paused",
+        "Partial Success"
+      ],
+      "projectTreatment": "等待用户和执行失败不是同一状态。"
+    },
+    {
+      "id": "handbook.041",
+      "number": 41,
+      "sourceId": "handbook-07",
+      "title": "Agent Timeline 执行过程",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Step",
+        "Current Step",
+        "Completed Step",
+        "Failed Step",
+        "Tool Card",
+        "Collapsed Detail",
+        "Duration",
+        "Retry Step"
+      ],
+      "projectTreatment": "步骤与整体任务进度分别展示。"
+    },
+    {
+      "id": "handbook.042",
+      "number": 42,
+      "sourceId": "handbook-07",
+      "title": "Vibe Coding / AI Coding 专属",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Live Preview",
+        "Hot Reload",
+        "Build State",
+        "Diff",
+        "Accept Change",
+        "Reject Change",
+        "Apply Patch",
+        "Rollback",
+        "File Changed",
+        "Error Overlay",
+        "Build Log",
+        "Select Element"
+      ],
+      "projectTreatment": "预览结果、代码变更和构建状态分别说明。"
+    },
+    {
+      "id": "handbook.043",
+      "number": 43,
+      "sourceId": "handbook-08",
+      "title": "权限与账户状态",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "Login Gate",
+        "Permission Gate",
+        "Role-based UI",
+        "Locked",
+        "Upgrade",
+        "Expired",
+        "Read Only",
+        "Owner Only"
+      ],
+      "projectTreatment": "显示限制原因与合法的下一步。"
+    },
+    {
+      "id": "handbook.044",
+      "number": 44,
+      "sourceId": "handbook-09",
+      "title": "Accessibility 无障碍",
+      "domains": [
+        "quality"
+      ],
+      "representativeTerms": [
+        "Focus Visible",
+        "Keyboard Navigation",
+        "Focus Trap",
+        "Restore Focus",
+        "Escape Close",
+        "ARIA Live",
+        "Reduced Motion",
+        "Contrast",
+        "Touch Target"
+      ],
+      "projectTreatment": "明确组件语义和键盘路径，数值例子需另核标准。"
+    },
+    {
+      "id": "handbook.045",
+      "number": 45,
+      "sourceId": "handbook-01",
+      "title": "Motion System 动效系统",
+      "domains": [
+        "motion"
+      ],
+      "representativeTerms": [
+        "Duration",
+        "Delay",
+        "Easing",
+        "Spring",
+        "Stagger",
+        "Distance",
+        "Scale",
+        "Opacity",
+        "Blur",
+        "Rotation",
+        "Transform Origin",
+        "Threshold",
+        "Sequence",
+        "Overlap",
+        "Enter",
+        "Exit"
+      ],
+      "projectTreatment": "参数、单位和时序需可重现。"
+    },
+    {
+      "id": "handbook.046",
+      "number": 46,
+      "sourceId": "handbook-08",
+      "title": "性能感知交互",
+      "domains": [
+        "quality"
+      ],
+      "representativeTerms": [
+        "Optimistic UI",
+        "Prefetch",
+        "Preload",
+        "Lazy Load",
+        "Virtual Scroll",
+        "Debounce",
+        "Throttle",
+        "Transform Animation",
+        "Layout Shift"
+      ],
+      "projectTreatment": "区分感知反馈与真实速度提升。"
+    },
+    {
+      "id": "handbook.047",
+      "number": 47,
+      "sourceId": "handbook-03",
+      "title": "Tree 树形结构交互",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Expand",
+        "Collapse",
+        "Recursive Tree",
+        "Lazy Tree",
+        "Tree Select",
+        "Tree Checkbox",
+        "Tree Drag",
+        "Expand All",
+        "Collapse All",
+        "Tree Search"
+      ],
+      "projectTreatment": "选择、展开和加载是不同状态。"
+    },
+    {
+      "id": "handbook.048",
+      "number": 48,
+      "sourceId": "handbook-03",
+      "title": "Selection 选择系统",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Single Select",
+        "Multi Select",
+        "Range Select",
+        "Marquee Select",
+        "Select All",
+        "Clear Selection",
+        "Invert Selection",
+        "Selection Count",
+        "Context Toolbar"
+      ],
+      "projectTreatment": "说明选择范围及跨页行为。"
+    },
+    {
+      "id": "handbook.049",
+      "number": 49,
+      "sourceId": "handbook-03",
+      "title": "Split View / 多面板工作区",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Resizable Panel",
+        "Collapsible Panel",
+        "Panel Tabs",
+        "Swap Panel",
+        "Maximize",
+        "Restore",
+        "Persistent Layout"
+      ],
+      "projectTreatment": "面板布局与内容状态分别保存。"
+    },
+    {
+      "id": "handbook.050",
+      "number": 50,
+      "sourceId": "handbook-03",
+      "title": "Command / 操作命令系统",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Command Palette",
+        "Fuzzy Search",
+        "Recent Command",
+        "Command Group",
+        "Shortcut",
+        "Nested Command",
+        "Action Search",
+        "Quick Action"
+      ],
+      "projectTreatment": "搜索到命令与执行命令分开。"
+    },
+    {
+      "id": "handbook.051",
+      "number": 51,
+      "sourceId": "handbook-03",
+      "title": "Date / Time 时间交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Date Picker",
+        "Date Range",
+        "Time Picker",
+        "Preset",
+        "Calendar",
+        "Timeline",
+        "Event Drag",
+        "Event Resize",
+        "Current Time",
+        "Relative Time"
+      ],
+      "projectTreatment": "时间值、时区与展示格式分别记录。"
+    },
+    {
+      "id": "handbook.052",
+      "number": 52,
+      "sourceId": "handbook-03",
+      "title": "Notification 通知系统",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Badge",
+        "Notification Center",
+        "Unread",
+        "Mark Read",
+        "Mark All Read",
+        "Notification Group",
+        "Preferences",
+        "Desktop Notification"
+      ],
+      "projectTreatment": "通知权限和已读状态不能混同。"
+    },
+    {
+      "id": "handbook.053",
+      "number": 53,
+      "sourceId": "handbook-03",
+      "title": "Settings 设置中心",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Settings Group",
+        "Instant Apply",
+        "Save",
+        "Unsaved State",
+        "Reset",
+        "Settings Search",
+        "Preview",
+        "Dependent Settings"
+      ],
+      "projectTreatment": "区分自动保存与手动确认。"
+    },
+    {
+      "id": "handbook.054",
+      "number": 54,
+      "sourceId": "handbook-03",
+      "title": "Import / Export 数据进出",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "File Import",
+        "Import Preview",
+        "Field Mapping",
+        "Import Progress",
+        "Partial Import",
+        "Export",
+        "Export Progress",
+        "Export Ready",
+        "Print"
+      ],
+      "projectTreatment": "任务结果、部分失败与下载就绪分开。"
+    },
+    {
+      "id": "handbook.055",
+      "number": 55,
+      "sourceId": "handbook-04",
+      "title": "Terminal / Console 终端交互",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Streaming Output",
+        "Auto Scroll",
+        "Pause Scroll",
+        "Clear Output",
+        "Command History",
+        "Error Highlight",
+        "Search Log",
+        "Copy Log",
+        "Collapse Output"
+      ],
+      "projectTreatment": "用户查看旧输出时避免强制跳底。"
+    },
+    {
+      "id": "handbook.056",
+      "number": 56,
+      "sourceId": "handbook-04",
+      "title": "Log / Activity 操作记录",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Activity Feed",
+        "Audit Log",
+        "Event Detail",
+        "Log Filter",
+        "Log Search",
+        "Load Older",
+        "Live Log",
+        "Download Log"
+      ],
+      "projectTreatment": "事件内容与实时连接状态分别描述。"
+    },
+    {
+      "id": "handbook.057",
+      "number": 57,
+      "sourceId": "handbook-03",
+      "title": "Browser / PWA 系统级交互",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Install Prompt",
+        "Offline",
+        "Update Available",
+        "Fullscreen",
+        "Clipboard",
+        "Share",
+        "File System",
+        "Back Guard"
+      ],
+      "projectTreatment": "平台能力需有不支持和拒绝权限的后备。"
+    },
+    {
+      "id": "handbook.058",
+      "number": 58,
+      "sourceId": "handbook-05",
+      "title": "Map / 地图类交互",
+      "domains": [
+        "data"
+      ],
+      "representativeTerms": [
+        "Map Pan",
+        "Map Zoom",
+        "Marker",
+        "Cluster",
+        "Marker Hover",
+        "Info Window",
+        "Draw Area",
+        "Fit Bounds",
+        "Current Location"
+      ],
+      "projectTreatment": "定位权限与手动浏览分别设计。"
+    },
+    {
+      "id": "handbook.059",
+      "number": 59,
+      "sourceId": "handbook-08",
+      "title": "Security / 隐私反馈交互",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "Sensitive Mask",
+        "Reveal Secret",
+        "Copy Secret",
+        "Permission Confirmation",
+        "Destructive Warning",
+        "Session Warning",
+        "Device Session",
+        "Privacy Mode"
+      ],
+      "projectTreatment": "这是前端表达，不代表后端安全已实现。"
+    },
+    {
+      "id": "handbook.060",
+      "number": 60,
+      "sourceId": "handbook-09",
+      "title": "Internationalization 国际化交互",
+      "domains": [
+        "quality"
+      ],
+      "representativeTerms": [
+        "Language Switch",
+        "RTL Layout",
+        "Locale Date",
+        "Locale Number",
+        "Currency Format",
+        "Text Expansion",
+        "Dynamic Direction",
+        "Timezone"
+      ],
+      "projectTreatment": "切换语言应保留当前上下文。"
+    },
+    {
+      "id": "handbook.061",
+      "number": 61,
+      "sourceId": "handbook-08",
+      "title": "Multi-state 复杂状态机",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "State Machine",
+        "Idle to Loading",
+        "Loading to Success",
+        "Loading to Error",
+        "Error to Retry",
+        "Dirty",
+        "Locked",
+        "Pending",
+        "Conflict"
+      ],
+      "projectTreatment": "明确状态转换，避免互相矛盾的布尔状态。"
+    },
+    {
+      "id": "handbook.062",
+      "number": 62,
+      "sourceId": "handbook-08",
+      "title": "Boundary / 边界条件",
+      "domains": [
+        "state"
+      ],
+      "representativeTerms": [
+        "Zero Data",
+        "Single Item",
+        "Long Title",
+        "Long Filename",
+        "Large Number",
+        "Overflow Tabs",
+        "Many Columns",
+        "Broken Image",
+        "Null Result",
+        "Double Submit",
+        "Offline",
+        "Refresh",
+        "Browser Back",
+        "Virtual Keyboard",
+        "Orientation"
+      ],
+      "projectTreatment": "按适用条件补充可检查的边界。"
+    },
+    {
+      "id": "handbook.063",
+      "number": 63,
+      "sourceId": "handbook-10",
+      "title": "AI Prompt 里的「交互验收标准」",
+      "domains": [
+        "quality"
+      ],
+      "representativeTerms": [
+        "Behavior Criteria",
+        "Drawer Acceptance",
+        "Focus Management",
+        "Dismissal",
+        "Mobile Adaptation",
+        "Reduced Motion"
+      ],
+      "projectTreatment": "描述组件名字之外的完整操作结果。"
+    },
+    {
+      "id": "handbook.064",
+      "number": 64,
+      "sourceId": "handbook-02",
+      "title": "Stepper / 步骤流程",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Horizontal Stepper",
+        "Vertical Stepper",
+        "Completed Step",
+        "Current Step",
+        "Disabled Step",
+        "Optional Step",
+        "Step Validation",
+        "Back Step"
+      ],
+      "projectTreatment": "步骤状态与是否允许跳步分开。"
+    },
+    {
+      "id": "handbook.065",
+      "number": 65,
+      "sourceId": "handbook-02",
+      "title": "Wizard / 向导式交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Guided Flow",
+        "Conditional Step",
+        "Skip Step",
+        "Resume Flow",
+        "Summary",
+        "Edit Previous",
+        "Completion"
+      ],
+      "projectTreatment": "保留已填信息并处理条件分支。"
+    },
+    {
+      "id": "handbook.066",
+      "number": 66,
+      "sourceId": "handbook-02",
+      "title": "Progressive Disclosure / 渐进式披露",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Show More",
+        "Advanced Settings",
+        "Disclosure",
+        "Contextual Options",
+        "Inline Expand",
+        "Details Panel",
+        "Learn More"
+      ],
+      "projectTreatment": "主任务与高级选项保持层级。"
+    },
+    {
+      "id": "handbook.067",
+      "number": 67,
+      "sourceId": "handbook-02",
+      "title": "Toggle / Checkbox / Radio 选择控件",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Toggle",
+        "Checkbox",
+        "Radio",
+        "Indeterminate",
+        "Checkbox Card",
+        "Radio Card",
+        "Toggle Group"
+      ],
+      "projectTreatment": "开关、多选、单选的语义不同。"
+    },
+    {
+      "id": "handbook.068",
+      "number": 68,
+      "sourceId": "handbook-02",
+      "title": "Segmented Control / 视图切换",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Segmented Control",
+        "Grid List Switch",
+        "Preview Code Switch",
+        "Day Week Month",
+        "Metric Switch",
+        "Density Switch"
+      ],
+      "projectTreatment": "切视图不应悄悄丢失已有选择。"
+    },
+    {
+      "id": "handbook.069",
+      "number": 69,
+      "sourceId": "handbook-02",
+      "title": "Workspace Tabs / 工作区标签",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Closable Tab",
+        "Dirty Tab",
+        "Pinned Tab",
+        "Tab Overflow",
+        "Tab Reorder",
+        "Reopen Tab",
+        "Preview Tab"
+      ],
+      "projectTreatment": "临时预览标签与固定标签分开。"
+    },
+    {
+      "id": "handbook.070",
+      "number": 70,
+      "sourceId": "handbook-03",
+      "title": "History / 页面历史状态",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Back State",
+        "Scroll Restoration",
+        "Query State",
+        "Deep Link",
+        "Route Guard",
+        "Unsaved Guard",
+        "Persistent View"
+      ],
+      "projectTreatment": "可分享URL状态与本地状态分别设计。"
+    },
+    {
+      "id": "handbook.071",
+      "number": 71,
+      "sourceId": "handbook-03",
+      "title": "Breadcrumb 高级路径交互",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Collapsed Breadcrumb",
+        "Editable Breadcrumb",
+        "Dropdown Breadcrumb",
+        "Dynamic Path",
+        "Breadcrumb Menu"
+      ],
+      "projectTreatment": "当前路径与历史访问并非同一概念。"
+    },
+    {
+      "id": "handbook.072",
+      "number": 72,
+      "sourceId": "handbook-03",
+      "title": "Data Density / 信息密度控制",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Comfortable Density",
+        "Compact Density",
+        "Custom Density",
+        "Dense Toolbar",
+        "Responsive Density"
+      ],
+      "projectTreatment": "提高密度仍需维持可读与可操作性。"
+    },
+    {
+      "id": "handbook.073",
+      "number": 73,
+      "sourceId": "handbook-03",
+      "title": "Bulk Operations / 批量操作",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Bulk Select",
+        "Bulk Action Bar",
+        "Select Page",
+        "Select All Results",
+        "Batch Delete",
+        "Batch Edit",
+        "Batch Retry",
+        "Partial Failure"
+      ],
+      "projectTreatment": "明确影响对象和部分失败结果。"
+    },
+    {
+      "id": "handbook.074",
+      "number": 74,
+      "sourceId": "handbook-07",
+      "title": "Queue / 队列任务",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Task Queue",
+        "Queue Position",
+        "Pending Task",
+        "Running Task",
+        "Pause Task",
+        "Resume Task",
+        "Remove Pending",
+        "Retry Failed"
+      ],
+      "projectTreatment": "排队、执行和暂停应可区分。"
+    },
+    {
+      "id": "handbook.075",
+      "number": 75,
+      "sourceId": "handbook-07",
+      "title": "Background Task / 后台任务",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Background Processing",
+        "Task Badge",
+        "Task Center",
+        "Completion Notification",
+        "Background Failure",
+        "Resume Result"
+      ],
+      "projectTreatment": "离开当前页面后的任务行为需说明。"
+    },
+    {
+      "id": "handbook.076",
+      "number": 76,
+      "sourceId": "handbook-03",
+      "title": "Approval / 审批与确认流程",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Approve",
+        "Reject",
+        "Request Changes",
+        "Pending Approval",
+        "Approval Timeline",
+        "Multi-level Approval",
+        "Parallel Approval",
+        "Human in the Loop"
+      ],
+      "projectTreatment": "需要授权的动作与展示进度分开。"
+    },
+    {
+      "id": "handbook.077",
+      "number": 77,
+      "sourceId": "handbook-03",
+      "title": "Compare / 比较模式",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Side by Side",
+        "Before After",
+        "Diff",
+        "Overlay Compare",
+        "Metric Compare",
+        "Version Compare",
+        "Multi-select Compare"
+      ],
+      "projectTreatment": "比较对象、基线和对齐方式明确。"
+    },
+    {
+      "id": "handbook.078",
+      "number": 78,
+      "sourceId": "handbook-03",
+      "title": "Versioning / 版本管理",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Version History",
+        "Auto Version",
+        "Named Version",
+        "Restore Version",
+        "Compare Versions",
+        "Current Version",
+        "Version Author"
+      ],
+      "projectTreatment": "恢复版本的影响范围需可理解。"
+    },
+    {
+      "id": "handbook.079",
+      "number": 79,
+      "sourceId": "handbook-03",
+      "title": "Comment / 评论批注",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Inline Comment",
+        "Anchored Comment",
+        "Thread",
+        "Resolve",
+        "Reopen",
+        "Mention",
+        "Comment Count",
+        "Comment Filter"
+      ],
+      "projectTreatment": "内容锚点与讨论状态分别维护。"
+    },
+    {
+      "id": "handbook.080",
+      "number": 80,
+      "sourceId": "handbook-04",
+      "title": "Presence / 多人状态强化",
+      "domains": [
+        "workspace"
+      ],
+      "representativeTerms": [
+        "Online",
+        "Away",
+        "Editing",
+        "Viewing",
+        "Locked by User",
+        "Follow User",
+        "Jump to User"
+      ],
+      "projectTreatment": "在线、正在编辑与锁定状态不同。"
+    },
+    {
+      "id": "handbook.081",
+      "number": 81,
+      "sourceId": "handbook-02",
+      "title": "Overlay / 浮层定位系统",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Auto Placement",
+        "Collision Detection",
+        "Flip",
+        "Shift",
+        "Offset",
+        "Portal",
+        "Arrow Position",
+        "Nested Overlay"
+      ],
+      "projectTreatment": "定位策略与动画效果分开。"
+    },
+    {
+      "id": "handbook.082",
+      "number": 82,
+      "sourceId": "handbook-02",
+      "title": "Layer / Z-index 层级系统",
+      "domains": [
+        "component"
+      ],
+      "representativeTerms": [
+        "Base Layer",
+        "Sticky Layer",
+        "Dropdown Layer",
+        "Overlay Layer",
+        "Modal Layer",
+        "Toast Layer",
+        "Tooltip Layer",
+        "Layer Token"
+      ],
+      "projectTreatment": "层级值依项目约束而定。"
+    },
+    {
+      "id": "handbook.083",
+      "number": 83,
+      "sourceId": "handbook-03",
+      "title": "Input Method / 多输入方式",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Mouse",
+        "Touch",
+        "Keyboard",
+        "Stylus",
+        "Voice",
+        "Paste",
+        "IME Composition",
+        "Hardware Keyboard"
+      ],
+      "projectTreatment": "中文输入合成期间避免误提交和误触快捷键。"
+    },
+    {
+      "id": "handbook.084",
+      "number": 84,
+      "sourceId": "handbook-03",
+      "title": "Clipboard / 剪贴板交互",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Copy",
+        "Cut",
+        "Paste",
+        "Paste Plain Text",
+        "Copy Link",
+        "Copy Code",
+        "Multi-item Copy",
+        "Paste Position"
+      ],
+      "projectTreatment": "处理权限、不支持与操作反馈。"
+    },
+    {
+      "id": "handbook.085",
+      "number": 85,
+      "sourceId": "handbook-07",
+      "title": "AI Generation / 内容生成状态",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Preparing",
+        "Generating",
+        "Streaming",
+        "Refining",
+        "Rendering",
+        "Post-processing",
+        "Completed",
+        "Interrupted",
+        "Failed",
+        "Regeneration"
+      ],
+      "projectTreatment": "真实阶段与无法确定的进度区分。"
+    },
+    {
+      "id": "handbook.086",
+      "number": 86,
+      "sourceId": "handbook-07",
+      "title": "Streaming Content / 流式内容交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Token Streaming",
+        "Markdown Streaming",
+        "Code Streaming",
+        "Auto Follow",
+        "Pause Follow",
+        "Stream Cursor",
+        "Partial Render",
+        "Stream Error"
+      ],
+      "projectTreatment": "中断后保留已生成内容。"
+    },
+    {
+      "id": "handbook.087",
+      "number": 87,
+      "sourceId": "handbook-07",
+      "title": "AI Artifact / AI 产物交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Artifact Panel",
+        "Live Artifact",
+        "Artifact Version",
+        "Open Artifact",
+        "Fullscreen Artifact",
+        "Download Artifact",
+        "Fork Artifact",
+        "Restore Artifact"
+      ],
+      "projectTreatment": "预览与导出是否完成分别表示。"
+    },
+    {
+      "id": "handbook.088",
+      "number": 88,
+      "sourceId": "handbook-07",
+      "title": "AI Context / 上下文交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Context Chip",
+        "Remove Context",
+        "Context Preview",
+        "Context Loading",
+        "Context Error",
+        "Context Limit",
+        "Selected Context",
+        "Context Scope"
+      ],
+      "projectTreatment": "让用户看见哪些材料会参与本次任务。"
+    },
+    {
+      "id": "handbook.089",
+      "number": 89,
+      "sourceId": "handbook-07",
+      "title": "AI Source / 引用来源交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Inline Citation",
+        "Citation Hover",
+        "Source Drawer",
+        "Source Highlight",
+        "Multiple Sources",
+        "Broken Source",
+        "Source Filter",
+        "Source Trust State"
+      ],
+      "projectTreatment": "出处存在不等于内容已验证。"
+    },
+    {
+      "id": "handbook.090",
+      "number": 90,
+      "sourceId": "handbook-07",
+      "title": "AI Tool Call / 工具调用交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Tool Input",
+        "Tool Output",
+        "Tool Running",
+        "Tool Success",
+        "Tool Error",
+        "Tool Approval",
+        "Tool Cancel",
+        "Parallel Tool Calls"
+      ],
+      "projectTreatment": "工具输出应保留状态与关联步骤。"
+    },
+    {
+      "id": "handbook.091",
+      "number": 91,
+      "sourceId": "handbook-07",
+      "title": "AI Branch / 分支对话",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Branch Conversation",
+        "Alternate Answer",
+        "Branch Indicator",
+        "Switch Branch",
+        "Fork Branch",
+        "Merge Result"
+      ],
+      "projectTreatment": "分支上下文与选中结果分别保存。"
+    },
+    {
+      "id": "handbook.092",
+      "number": 92,
+      "sourceId": "handbook-07",
+      "title": "AI Memory / 记忆交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Remember",
+        "Memory List",
+        "Delete Memory",
+        "Memory Scope",
+        "Temporary Chat",
+        "Memory Consent",
+        "Memory Used Indicator"
+      ],
+      "projectTreatment": "记忆范围、同意与本次使用应可理解。"
+    },
+    {
+      "id": "handbook.093",
+      "number": 93,
+      "sourceId": "handbook-07",
+      "title": "AI Model / 模型选择交互",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Model Selector",
+        "Model Menu",
+        "Auto Mode",
+        "Capability Label",
+        "Model Switch",
+        "Unsupported Model",
+        "Model Loading"
+      ],
+      "projectTreatment": "能力标签和切换限制需有实际依据。"
+    },
+    {
+      "id": "handbook.094",
+      "number": 94,
+      "sourceId": "handbook-07",
+      "title": "AI Human-in-the-loop / 人机协同",
+      "domains": [
+        "ai"
+      ],
+      "representativeTerms": [
+        "Review Before Apply",
+        "Approve",
+        "Edit Before Apply",
+        "Suggest Only",
+        "Apply All",
+        "Apply Selected",
+        "Reject All",
+        "Ask Clarification"
+      ],
+      "projectTreatment": "先审阅实际变更，再决定应用范围。"
+    },
+    {
+      "id": "handbook.095",
+      "number": 95,
+      "sourceId": "handbook-06",
+      "title": "Responsive Container / 容器级响应式",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Container Query",
+        "Adaptive Card",
+        "Toolbar Overflow",
+        "Adaptive Sidebar",
+        "Fluid Typography",
+        "Reflow"
+      ],
+      "projectTreatment": "基于容器的变化与视口断点区分。"
+    },
+    {
+      "id": "handbook.096",
+      "number": 96,
+      "sourceId": "handbook-06",
+      "title": "Viewport / 可视区域行为",
+      "domains": [
+        "device"
+      ],
+      "representativeTerms": [
+        "Dynamic Viewport Height",
+        "Keyboard Avoidance",
+        "Visual Viewport",
+        "Safe Area",
+        "Orientation",
+        "Viewport Resize"
+      ],
+      "projectTreatment": "考虑键盘弹出与浏览器栏变化。"
+    },
+    {
+      "id": "handbook.097",
+      "number": 97,
+      "sourceId": "handbook-09",
+      "title": "Accessibility Advanced / 高级无障碍",
+      "domains": [
+        "quality"
+      ],
+      "representativeTerms": [
+        "Skip Link",
+        "Screen Reader Label",
+        "Live Region",
+        "Semantic Heading",
+        "Error Association",
+        "High Contrast",
+        "Reduced Transparency",
+        "Zoom"
+      ],
+      "projectTreatment": "辅助技术表现需专门验证。"
+    },
+    {
+      "id": "handbook.098",
+      "number": 98,
+      "sourceId": "handbook-09",
+      "title": "Motion Accessibility / 动效无障碍",
+      "domains": [
+        "quality"
+      ],
+      "representativeTerms": [
+        "Reduced Motion",
+        "Non-essential Motion",
+        "Pause Animation",
+        "Avoid Flash",
+        "Motion Substitute",
+        "Disable Parallax"
+      ],
+      "projectTreatment": "关闭动画后信息和操作仍完整。"
+    },
+    {
+      "id": "handbook.099",
+      "number": 99,
+      "sourceId": "handbook-01",
+      "title": "Interaction Token / 交互 Token",
+      "domains": [
+        "motion"
+      ],
+      "representativeTerms": [
+        "Duration Token",
+        "Easing Token",
+        "Distance Token",
+        "Press Scale",
+        "Hover Scale"
+      ],
+      "projectTreatment": "Token是项目约定，不是跨项目标准值。"
+    },
+    {
+      "id": "handbook.100",
+      "number": 100,
+      "sourceId": "handbook-10",
+      "title": "Interaction QA / 前端交互验收",
+      "domains": [
+        "quality"
+      ],
+      "representativeTerms": [
+        "Default",
+        "Hover",
+        "Focus",
+        "Pressed",
+        "Disabled",
+        "Loading",
+        "Success",
+        "Error",
+        "Empty",
+        "Mobile",
+        "Keyboard",
+        "Overflow",
+        "Slow Network",
+        "Double Click",
+        "Resize",
+        "Back",
+        "Refresh",
+        "Accessibility",
+        "Performance",
+        "Boundary"
+      ],
+      "projectTreatment": "验收要求与实际测试结果分别保存。"
+    }
+  ],
+  "motionEntries": [
+    {
+      "id": "motion.01",
+      "number": 1,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "缓动",
+        "en": "Easing"
+      },
+      "suggestedKind": "parameter"
+    },
+    {
+      "id": "motion.02",
+      "number": 2,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "时长",
+        "en": "Duration"
+      },
+      "suggestedKind": "parameter"
+    },
+    {
+      "id": "motion.03",
+      "number": 3,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "延迟",
+        "en": "Delay"
+      },
+      "suggestedKind": "parameter"
+    },
+    {
+      "id": "motion.04",
+      "number": 4,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "交错出现",
+        "en": "Stagger"
+      },
+      "suggestedKind": "parameter"
+    },
+    {
+      "id": "motion.05",
+      "number": 5,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "弹簧动画",
+        "en": "Spring"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.06",
+      "number": 6,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "淡入与淡出",
+        "en": "Fade in / Fade out"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.07",
+      "number": 7,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "交叉淡化",
+        "en": "Crossfade"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.08",
+      "number": 8,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "滑入与滑出",
+        "en": "Slide in / Slide out"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.09",
+      "number": 9,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "缩放进入与离开",
+        "en": "Scale in / Scale out"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.10",
+      "number": 10,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "模糊显现",
+        "en": "Blur reveal"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.11",
+      "number": 11,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "裁剪揭示",
+        "en": "Clip-path reveal"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.12",
+      "number": 12,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "蒙版显现",
+        "en": "Mask reveal"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.13",
+      "number": 13,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "擦除转场",
+        "en": "Wipe transition"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.14",
+      "number": 14,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "文字显现",
+        "en": "Text reveal"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.15",
+      "number": 15,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "按行显现",
+        "en": "Line reveal"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.16",
+      "number": 16,
+      "sourceId": "motion-upper",
+      "name": {
+        "zh": "按词显现",
+        "en": "Word reveal"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.17",
+      "number": 17,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "按字符显现",
+        "en": "Character reveal"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.18",
+      "number": 18,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "打字机效果",
+        "en": "Typewriter"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.19",
+      "number": 19,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "乱码解码",
+        "en": "Scramble text"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.20",
+      "number": 20,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "文字变形",
+        "en": "Text morphing"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.21",
+      "number": 21,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "视差滚动",
+        "en": "Parallax scrolling"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.22",
+      "number": 22,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "多层视差",
+        "en": "Multi-layer parallax"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.23",
+      "number": 23,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "横向滚动",
+        "en": "Horizontal scroll"
+      },
+      "suggestedKind": "workflow"
+    },
+    {
+      "id": "motion.24",
+      "number": 24,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "滚动缩放",
+        "en": "Scroll zoom"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.25",
+      "number": 25,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "固定式滚动叙事",
+        "en": "Sticky scrollytelling"
+      },
+      "suggestedKind": "workflow"
+    },
+    {
+      "id": "motion.26",
+      "number": 26,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "图片序列滚动",
+        "en": "Image sequence"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.27",
+      "number": 27,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "滚动吸附",
+        "en": "Scroll snap"
+      },
+      "suggestedKind": "workflow"
+    },
+    {
+      "id": "motion.28",
+      "number": 28,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "滚动进度提示",
+        "en": "Progress indicator"
+      },
+      "suggestedKind": "component"
+    },
+    {
+      "id": "motion.29",
+      "number": 29,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "磁吸按钮",
+        "en": "Magnetic button"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.30",
+      "number": 30,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "立体倾斜卡片",
+        "en": "Tilt card"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.31",
+      "number": 31,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "自定义光标跟随",
+        "en": "Cursor follower"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.32",
+      "number": 32,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "光标聚光灯",
+        "en": "Cursor spotlight"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.33",
+      "number": 33,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "鼠标跟随眼睛",
+        "en": "Mouse-following eyes"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.34",
+      "number": 34,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "光标拖尾",
+        "en": "Cursor trail"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.35",
+      "number": 35,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "指针响应背景",
+        "en": "Pointer-reactive background"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.36",
+      "number": 36,
+      "sourceId": "motion-middle",
+      "name": {
+        "zh": "3D物体跟随",
+        "en": "3D object follow"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.37",
+      "number": 37,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "折叠展开",
+        "en": "Accordion"
+      },
+      "suggestedKind": "component"
+    },
+    {
+      "id": "motion.38",
+      "number": 38,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "锚定浮层",
+        "en": "Dropdown / Tooltip / Popover"
+      },
+      "suggestedKind": "component"
+    },
+    {
+      "id": "motion.39",
+      "number": 39,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "弹窗过渡",
+        "en": "Modal / Dialog transition"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.40",
+      "number": 40,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "抽屉与底部面板",
+        "en": "Drawer / Bottom sheet"
+      },
+      "suggestedKind": "component"
+    },
+    {
+      "id": "motion.41",
+      "number": 41,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "标签页切换",
+        "en": "Tab transition"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.42",
+      "number": 42,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "轮播与滑块切换",
+        "en": "Carousel / Slider transition"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.43",
+      "number": 43,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "轻提示消息",
+        "en": "Toast / Snackbar"
+      },
+      "suggestedKind": "component"
+    },
+    {
+      "id": "motion.44",
+      "number": 44,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "数字计数与翻牌",
+        "en": "Animated counter / Odometer"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.45",
+      "number": 45,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "骨架屏加载",
+        "en": "Skeleton loading"
+      },
+      "suggestedKind": "component"
+    },
+    {
+      "id": "motion.46",
+      "number": 46,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "加载指示与进度",
+        "en": "Loading indicator"
+      },
+      "suggestedKind": "component"
+    },
+    {
+      "id": "motion.47",
+      "number": 47,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "成功与错误反馈",
+        "en": "Success / Error feedback"
+      },
+      "suggestedKind": "workflow"
+    },
+    {
+      "id": "motion.48",
+      "number": 48,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "图标形变",
+        "en": "Icon morphing"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.49",
+      "number": 49,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "布局过渡",
+        "en": "Layout animation"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.50",
+      "number": 50,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "共享元素转场",
+        "en": "Shared element transition"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.51",
+      "number": 51,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "页面转场",
+        "en": "Page transition"
+      },
+      "suggestedKind": "effect"
+    },
+    {
+      "id": "motion.52",
+      "number": 52,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "反馈",
+        "en": "Feedback"
+      },
+      "suggestedKind": "concept"
+    },
+    {
+      "id": "motion.53",
+      "number": 53,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "操作暗示",
+        "en": "Affordance"
+      },
+      "suggestedKind": "concept"
+    },
+    {
+      "id": "motion.54",
+      "number": 54,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "焦点与注意力",
+        "en": "Focus"
+      },
+      "suggestedKind": "concept"
+    },
+    {
+      "id": "motion.55",
+      "number": 55,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "减少动态",
+        "en": "Reduced motion"
+      },
+      "suggestedKind": "rule"
+    },
+    {
+      "id": "motion.56",
+      "number": 56,
+      "sourceId": "motion-lower",
+      "name": {
+        "zh": "鼠标触屏与键盘适配",
+        "en": "Input modality support"
+      },
+      "suggestedKind": "rule"
+    }
+  ],
+  "visualEntries": [
+    {
+      "id": "visual.upper.01",
+      "number": 1,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "卡片式布局",
+        "en": "Card-based Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.02",
+      "number": 2,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "瀑布流",
+        "en": "Masonry Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.03",
+      "number": 3,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "便当盒布局",
+        "en": "Bento Grid"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.04",
+      "number": 4,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "分屏布局",
+        "en": "Split-screen Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.05",
+      "number": 5,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "CSS网格布局",
+        "en": "CSS Grid Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.06",
+      "number": 6,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "弹性布局",
+        "en": "Flexbox"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.07",
+      "number": 7,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "侧边栏布局",
+        "en": "Sidebar Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.08",
+      "number": 8,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "仪表盘布局",
+        "en": "Dashboard Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.09",
+      "number": 9,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "响应式布局",
+        "en": "Responsive Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.10",
+      "number": 10,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "全出血布局",
+        "en": "Full-bleed Layout"
+      },
+      "sourceChapter": 1
+    },
+    {
+      "id": "visual.upper.11",
+      "number": 11,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "单页网站",
+        "en": "Single-page Website"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.12",
+      "number": 12,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "多页网站",
+        "en": "Multi-page Website"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.13",
+      "number": 13,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "落地页",
+        "en": "Landing Page"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.14",
+      "number": 14,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "案例研究页",
+        "en": "Case Study Page"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.15",
+      "number": 15,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "首屏",
+        "en": "Hero Section"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.16",
+      "number": 16,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "功能网格",
+        "en": "Feature Grid"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.17",
+      "number": 17,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "固定叙事区",
+        "en": "Sticky Storytelling"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.18",
+      "number": 18,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "时间线",
+        "en": "Timeline"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.19",
+      "number": 19,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "常见问题",
+        "en": "FAQ Section"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.20",
+      "number": 20,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "页脚",
+        "en": "Footer"
+      },
+      "sourceChapter": 2
+    },
+    {
+      "id": "visual.upper.21",
+      "number": 21,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "固定导航",
+        "en": "Sticky Navbar"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.22",
+      "number": 22,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "汉堡菜单",
+        "en": "Hamburger Menu"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.23",
+      "number": 23,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "面包屑",
+        "en": "Breadcrumb"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.24",
+      "number": 24,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "锚点跳转",
+        "en": "Anchor Link"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.25",
+      "number": 25,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "标签切换",
+        "en": "Tabs"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.26",
+      "number": 26,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "侧边导航",
+        "en": "Sidebar Navigation"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.27",
+      "number": 27,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "超级菜单",
+        "en": "Mega Menu"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.28",
+      "number": 28,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "底部导航",
+        "en": "Bottom Navigation"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.29",
+      "number": 29,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "分页",
+        "en": "Pagination"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.30",
+      "number": 30,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "返回顶部",
+        "en": "Back to Top"
+      },
+      "sourceChapter": 3
+    },
+    {
+      "id": "visual.upper.31",
+      "number": 31,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "模态框",
+        "en": "Modal"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.32",
+      "number": 32,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "抽屉",
+        "en": "Drawer"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.33",
+      "number": 33,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "手风琴",
+        "en": "Accordion"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.34",
+      "number": 34,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "气泡提示",
+        "en": "Tooltip"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.35",
+      "number": 35,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "轻提示",
+        "en": "Toast"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.36",
+      "number": 36,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "轮播图",
+        "en": "Carousel"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.37",
+      "number": 37,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "图片灯箱",
+        "en": "Lightbox"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.38",
+      "number": 38,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "表单",
+        "en": "Form"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.39",
+      "number": 39,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "命令面板",
+        "en": "Command Palette"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.upper.40",
+      "number": 40,
+      "sourceId": "visual-upper",
+      "name": {
+        "zh": "悬浮操作按钮",
+        "en": "Floating Action Button"
+      },
+      "sourceChapter": 4
+    },
+    {
+      "id": "visual.lower.01",
+      "number": 1,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "滚动出现",
+        "en": "Scroll Reveal"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.02",
+      "number": 2,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "视差滚动",
+        "en": "Parallax"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.03",
+      "number": 3,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "阅读进度条",
+        "en": "Scroll Progress Indicator"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.04",
+      "number": 4,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "滚动吸附",
+        "en": "Scroll Snap"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.05",
+      "number": 5,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "横向滚动",
+        "en": "Horizontal Scroll"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.06",
+      "number": 6,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "无限滚动",
+        "en": "Infinite Scroll"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.07",
+      "number": 7,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "跑马灯",
+        "en": "Marquee"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.08",
+      "number": 8,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "悬停微交互",
+        "en": "Hover Micro-interaction"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.09",
+      "number": 9,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "错峰动画",
+        "en": "Staggered Animation"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.10",
+      "number": 10,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "滚动驱动动画",
+        "en": "Scroll-driven Animation"
+      },
+      "sourceChapter": 5
+    },
+    {
+      "id": "visual.lower.11",
+      "number": 11,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "骨架屏",
+        "en": "Skeleton Screen"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.12",
+      "number": 12,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "懒加载",
+        "en": "Lazy Loading"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.13",
+      "number": 13,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "加载转圈",
+        "en": "Loading Spinner"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.14",
+      "number": 14,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "进度条",
+        "en": "Progress Bar"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.15",
+      "number": 15,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "加载按钮",
+        "en": "Loading Button"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.16",
+      "number": 16,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "空状态",
+        "en": "Empty State"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.17",
+      "number": 17,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "错误状态",
+        "en": "Error State"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.18",
+      "number": 18,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "重试状态",
+        "en": "Retry State"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.19",
+      "number": 19,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "乐观更新",
+        "en": "Optimistic UI"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.20",
+      "number": 20,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "行内验证",
+        "en": "Inline Validation"
+      },
+      "sourceChapter": 6
+    },
+    {
+      "id": "visual.lower.21",
+      "number": 21,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "极简主义",
+        "en": "Minimalism"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.22",
+      "number": 22,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "编辑杂志风",
+        "en": "Editorial Design"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.23",
+      "number": 23,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "瑞士风",
+        "en": "Swiss Style"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.24",
+      "number": 24,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "玻璃拟态",
+        "en": "Glassmorphism"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.25",
+      "number": 25,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "新野兽派",
+        "en": "Neo-brutalism"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.26",
+      "number": 26,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "深色模式",
+        "en": "Dark Mode"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.27",
+      "number": 27,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "单色与双色",
+        "en": "Monochrome / Duotone"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.28",
+      "number": 28,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "网格渐变",
+        "en": "Gradient Mesh"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.29",
+      "number": 29,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "颗粒与噪点",
+        "en": "Grain / Noise Texture"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.30",
+      "number": 30,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "新拟态",
+        "en": "Neumorphism / Soft UI"
+      },
+      "sourceChapter": 7
+    },
+    {
+      "id": "visual.lower.31",
+      "number": 31,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "自定义光标",
+        "en": "Custom Cursor"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.32",
+      "number": 32,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "磁吸按钮",
+        "en": "Magnetic Button"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.33",
+      "number": 33,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "三维倾斜卡片",
+        "en": "3D Tilt Card"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.34",
+      "number": 34,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "聚光灯悬停",
+        "en": "Spotlight Hover"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.35",
+      "number": 35,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "图片与文字蒙版",
+        "en": "Image / Text Mask"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.36",
+      "number": 36,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "裁切揭示",
+        "en": "Clip-path Reveal"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.37",
+      "number": 37,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "WebGL或Three.js首屏",
+        "en": "WebGL / Three.js Hero"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.38",
+      "number": 38,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "视图过渡",
+        "en": "View Transitions"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.39",
+      "number": 39,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "减少动态",
+        "en": "Reduced Motion"
+      },
+      "sourceChapter": 8
+    },
+    {
+      "id": "visual.lower.40",
+      "number": 40,
+      "sourceId": "visual-lower",
+      "name": {
+        "zh": "性能预算",
+        "en": "Performance Budget"
+      },
+      "sourceChapter": 8
+    }
+  ],
+  "foundation": {
+    "sourceId": "motion-upper",
+    "concepts": [
+      "UI",
+      "UX",
+      "Vibe coding"
+    ],
+    "tools": [
+      "CSS",
+      "Motion",
+      "GSAP",
+      "Three.js",
+      "Lottie",
+      "Rive"
+    ],
+    "triggerFamilies": [
+      "Hover",
+      "Focus",
+      "Click / Tap / Press",
+      "Pointer",
+      "In View / Scroll-triggered",
+      "Scroll-linked",
+      "Gesture",
+      "Load / Route",
+      "State Change",
+      "Timer / Idle"
+    ],
+    "sourceLayers": [
+      "技术工具",
+      "触发方式",
+      "动效类型",
+      "UX规则"
+    ]
+  },
+  "extras": [
+    {
+      "sourceId": "handbook-08",
+      "items": [
+        "交互描述九要素",
+        "动效时长建议表",
+        "动效幅度建议表",
+        "模糊描述与具体描述的对照"
+      ],
+      "treatment": "转成配方字段与带出处的建议，非标准"
+    },
+    {
+      "sourceId": "handbook-10",
+      "items": [
+        "Drawer验收示例",
+        "交互QA维度"
+      ],
+      "treatment": "转成有适用前提的验收规则"
+    },
+    {
+      "sourceId": "motion-lower",
+      "items": [
+        "个人动效素材库记录方法"
+      ],
+      "treatment": "转成观察实例字段"
+    },
+    {
+      "sourceId": "visual-upper",
+      "items": [
+        "综合网站提示词示例"
+      ],
+      "treatment": "用于理解组合结构，不复制原文"
+    },
+    {
+      "sourceId": "visual-lower",
+      "items": [
+        "综合体验增强提示词示例"
+      ],
+      "treatment": "用于理解质量约束，不复制原文"
+    }
+  ]
+}

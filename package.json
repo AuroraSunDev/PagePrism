@@ -1,0 +1,17 @@
+{
+  "name": "pageprism",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"tsx watch server/index.ts\" \"vite --host 127.0.0.1\"",
+    "start": "tsx server/index.ts",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration --maxWorkers=1",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:integration"
+  },
+  "engines": { "node": ">=22" }
+}
