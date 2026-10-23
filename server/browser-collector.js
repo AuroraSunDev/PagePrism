@@ -4,7 +4,7 @@
     const parts = [];
     for (
       let node = element;
-      node && node !== document.body && parts.length < 6;
+      node && node !== document.body;
       node = node.parentElement
     ) {
       const tag = node.tagName.toLowerCase();

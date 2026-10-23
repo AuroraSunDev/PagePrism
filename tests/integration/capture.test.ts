@@ -4,6 +4,8 @@ import { mkdtemp, readFile, rm, stat } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { captureRun } from "../../server/capture";
+import { collectPageEvidence } from "../../server/analyze";
+import { chromium } from "@playwright/test";
 import { createRun, runDirectory } from "../../server/store";
 
 let server: Server;
@@ -41,6 +43,16 @@ beforeAll(async () => {
       res.end("Forbidden");
       return;
     }
+    if (req.url === "/reference/deep/") {
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.end(
+        "<h1>Nested reference</h1>" +
+          "<div>".repeat(9) +
+          '<button style="width:200px;height:50px">Deep button</button><div class="reveal" style="width:200px;height:50px;opacity:0.5">Deep reveal</div>' +
+          "</div>".repeat(9),
+      );
+      return;
+    }
     const file = req.url?.endsWith(".png") ? "architecture.png" : "index.html";
     res.setHeader(
       "Content-Type",
@@ -76,6 +88,11 @@ describe("real browser evidence", () => {
     expect(hover).toBeDefined();
     expect(hover!.facts.some((f) => f.label.includes("transform"))).toBe(true);
     expect(hover!.frames.length).toBeGreaterThanOrEqual(4);
+    expect(hover!.clip!.startSeconds).toBeGreaterThanOrEqual(0);
+    expect(hover!.clip!.endSeconds).toBeGreaterThan(hover!.clip!.startSeconds);
+    expect(
+      (hover!.clip!.endSeconds - hover!.clip!.startSeconds) * 1000,
+    ).toBeGreaterThanOrEqual(hover!.frames.at(-1)!.elapsedMs);
     expect(
       hover!.frames.every(
         (f, i, all) => i === 0 || f.elapsedMs > all[i - 1].elapsedMs,
@@ -100,6 +117,20 @@ describe("real browser evidence", () => {
       trustedFixture: true,
     });
     expect(result.status).toBe("cancelled");
+  });
+  it("returns selectors resolving to deeply nested hover and reveal targets", async () => {
+    const browser = await chromium.launch({ headless: true });
+    try {
+      const page = await browser.newPage();
+      await page.goto(base + "deep/");
+      const raw = await collectPageEvidence(page);
+      expect(raw.targets.length).toBe(1);
+      expect(raw.revealTargets.length).toBe(1);
+      for (const target of [...raw.targets, ...raw.revealTargets])
+        expect(await page.locator(target.selector).count()).toBe(1);
+    } finally {
+      await browser.close();
+    }
   });
   it("blocks private subresources, write requests, popup navigation and sockets", async () => {
     forbiddenRequests = 0;
