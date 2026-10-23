@@ -154,7 +154,7 @@ export async function captureRun(run: ReportRun, options: CaptureOptions): Promi
     await screenshot('mobile.png');
     const mobile = await collectPageEvidence(page);
     run.coverage.viewports.push('390×844');
-    if (run.findings.length < 6) run.findings.push({ id: 'mobile-layout', title: '移动端布局', category: 'device', summary: '在390px视口重新观察同一页面，保留移动端画面。请结合桌面画面对照内容重排、文字和导航。', trigger: '视口缩窄', changes: '移动端结构采样', implementation: '根据内容设置响应式断点，保持主要信息与操作可用；不能只把桌面整体缩小。', termIds: ['rule.input-modality','layout.split-screen'], evidenceStatus: 'observed', screenshot: 'mobile.png', frames: [], facts: [{ label: '视口', value: '390×844', basis: 'measured' }, { label: '标题字号', value: mobile.headingSize, basis: 'measured' }], limitations: ['这是Chromium窄视口，不代表真实手机或Safari验证；未执行触摸手势。'] });
+    if (run.findings.length < 6) run.findings.push({ id: 'mobile-layout', title: '移动端布局', category: 'device', summary: '在390px视口重新观察同一页面，保留移动端画面。请结合桌面画面对照内容重排、文字和导航。', trigger: '视口缩窄', changes: '移动端结构采样', implementation: '根据内容设置响应式断点，保持主要信息与操作可用；不能只把桌面整体缩小。', termIds: ['rule.input-modality','layout.responsive'], evidenceStatus: 'observed', screenshot: 'mobile.png', frames: [], facts: [{ label: '视口', value: '390×844', basis: 'measured' }, { label: '标题字号', value: mobile.headingSize, basis: 'measured' }], limitations: ['这是Chromium窄视口，不代表真实手机或Safari验证；未执行触摸手势。'] });
     run.coverage.limits.push('视频为桌面录制；移动端仅保留结构截图。', '关键帧标签为动作采样实测时间，不是视频编码时间戳。');
     if (!run.findings.some(f => f.category === 'motion')) run.warnings.push('本轮没有观察到可确认的动效变化，报告保留静态设计观察。');
     checkpoint();

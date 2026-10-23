@@ -1,13 +1,16 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createServer, type Server } from 'node:http';
-import { readFile, stat } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, stat } from 'node:fs/promises';
+import {tmpdir} from 'node:os';
 import { join } from 'node:path';
 import { captureRun } from '../../server/capture';
 import { createRun, runDirectory } from '../../server/store';
 
 let server: Server;
 let base: string;
+let temp:string;const previous=process.env.PAGEPRISM_DATA_DIR;
 beforeAll(async () => {
+  temp=await mkdtemp(join(tmpdir(),'pageprism-capture-'));process.env.PAGEPRISM_DATA_DIR=temp;
   server = createServer(async (req, res) => {
     const file = req.url?.endsWith('.png') ? 'architecture.png' : 'index.html';
     res.setHeader('Content-Type', file.endsWith('.png') ? 'image/png' : 'text/html; charset=utf-8');
@@ -16,7 +19,7 @@ beforeAll(async () => {
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${(server.address() as { port: number }).port}/reference/`;
 });
-afterAll(() => new Promise<void>(resolve => server.close(() => resolve())));
+afterAll(async()=>{await new Promise<void>(resolve=>server.close(()=>resolve()));await rm(temp,{recursive:true,force:true});if(previous===undefined)delete process.env.PAGEPRISM_DATA_DIR;else process.env.PAGEPRISM_DATA_DIR=previous;});
 
 describe('real browser evidence', () => {
   it('records original media, real hover changes and strictly increasing sampled times', async () => {
