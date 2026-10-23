@@ -83,7 +83,7 @@ describe("real browser evidence", () => {
     });
     expect(["completed", "partial"]).toContain(result.status);
     expect(result.findings.length).toBeGreaterThanOrEqual(3);
-    expect(result.findings.length).toBeLessThanOrEqual(6);
+    expect(result.findings.length).toBeLessThanOrEqual(12);
     const hover = result.findings.find((f) => f.trigger.includes("悬停"));
     expect(hover).toBeDefined();
     expect(hover!.facts.some((f) => f.label.includes("transform"))).toBe(true);
@@ -190,9 +190,9 @@ describe("real browser evidence", () => {
         onUpdate: async () => {},
         trustedFixture: true,
       });
-      expect(timeout).toHaveBeenCalledWith(90000);
+      expect(timeout).toHaveBeenCalledWith(120000);
       expect(result.status).toBe("failed");
-      expect(result.error).toContain("90秒");
+      expect(result.error).toContain("120秒");
     } finally {
       timeout.mockRestore();
     }

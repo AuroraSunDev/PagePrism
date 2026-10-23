@@ -40,7 +40,10 @@ test("real demo → contextual dictionary → select → purpose → downloadabl
   await expect(
     page.getByRole("button", { name: "术语：首屏主视觉区", exact: true }),
   ).toBeFocused();
-  await page.getByRole("button", { name: "卡片悬停反馈", exact: true }).click();
+  await page
+    .getByRole("button", { name: /^悬停变化：/ })
+    .first()
+    .click();
   const mobileTab = page.getByRole("button", { name: "原站画面", exact: true });
   if (await mobileTab.isVisible()) await mobileTab.click();
   await expect

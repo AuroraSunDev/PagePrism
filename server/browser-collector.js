@@ -1,25 +1,48 @@
 (() => {
-  const selector = (element) => {
-    if (element.id) return `#${CSS.escape(element.id)}`;
+  const selector = (el) => {
+    if (el.id) return "#" + CSS.escape(el.id);
+    for (const attr of el
+      .getAttributeNames()
+      .filter(
+        (n) => n.startsWith("data-") || ["aria-label", "title"].includes(n),
+      )) {
+      const value = el.getAttribute(attr);
+      if (!value || value.length > 120 || /[\n\r]/.test(value)) continue;
+      const q =
+        el.tagName.toLowerCase() +
+        "[" +
+        CSS.escape(attr) +
+        "=" +
+        JSON.stringify(value) +
+        "]";
+      try {
+        if (document.querySelectorAll(q).length === 1) return q;
+      } catch {}
+    }
     const parts = [];
-    for (
-      let node = element;
-      node && node !== document.body;
-      node = node.parentElement
-    ) {
-      const tag = node.tagName.toLowerCase();
-      const siblings = node.parentElement
-        ? [...node.parentElement.children].filter(
-            (x) => x.tagName === node.tagName,
-          )
-        : [];
-      parts.unshift(`${tag}:nth-of-type(${siblings.indexOf(node) + 1})`);
+    for (let n = el; n && n !== document.body; n = n.parentElement) {
+      if (n.id) return "#" + CSS.escape(n.id) + " > " + parts.join(" > ");
+      const siblings = [...n.parentElement.children].filter(
+        (x) => x.tagName === n.tagName,
+      );
+      parts.unshift(
+        n.tagName.toLowerCase() +
+          ":nth-of-type(" +
+          (siblings.indexOf(n) + 1) +
+          ")",
+      );
     }
     return "body > " + parts.join(" > ");
   };
   const properties = [
     "transform",
+    "translate",
+    "scale",
+    "rotate",
     "opacity",
+    "filter",
+    "fill",
+    "stroke",
     "box-shadow",
     "border-color",
     "background-color",
@@ -33,9 +56,9 @@
     selector: selector(el),
     tag: el.tagName.toLowerCase(),
     label: (
+      el.getAttribute("aria-label") ||
       el.querySelector("h1,h2,h3")?.textContent ||
       el.textContent ||
-      el.getAttribute("aria-label") ||
       el.tagName
     )
       .trim()
@@ -49,14 +72,40 @@
     ),
   });
   const visible = (el) => {
-    const r = el.getBoundingClientRect();
-    const s = getComputedStyle(el);
+    const r = el.getBoundingClientRect(),
+      s = getComputedStyle(el);
     return (
-      r.width > 60 &&
-      r.height > 20 &&
+      r.width > 8 &&
+      r.height > 8 &&
       s.display !== "none" &&
       s.visibility !== "hidden"
     );
+  };
+  const inView = (el) => {
+    const r = el.getBoundingClientRect();
+    return (
+      visible(el) &&
+      r.bottom > 0 &&
+      r.top < innerHeight &&
+      r.right > 0 &&
+      r.left < innerWidth &&
+      Number(getComputedStyle(el).opacity) > 0.02 &&
+      !el.closest('[hidden],[inert],[aria-hidden="true"]')
+    );
+  };
+  const reachable = (el) => {
+    const r = el.getBoundingClientRect();
+    return [
+      [0.5, 0.5],
+      [0.25, 0.65],
+      [0.75, 0.65],
+    ].some(([x, y]) => {
+      const hit = document.elementFromPoint(
+        Math.max(0, Math.min(innerWidth - 1, r.x + r.width * x)),
+        Math.max(0, Math.min(innerHeight - 1, r.y + r.height * y)),
+      );
+      return hit === el || el.contains(hit);
+    });
   };
   const elements = [
     ...document.querySelectorAll("main,section,header,article,div"),
@@ -82,15 +131,120 @@
           .slice(0, 80),
       };
     });
-  const targets = [
-    ...document.querySelectorAll('a,button,[role="button"],article'),
-  ]
-    .filter(visible)
-    .sort(
-      (a, b) =>
-        Number(!!b.querySelector("img")) - Number(!!a.querySelector("img")),
-    )
-    .slice(0, 3)
+  const hoverHints = new Set();
+  const scan = (rules) => {
+    for (const rule of [...rules].slice(0, 2000)) {
+      if (rule.cssRules) scan(rule.cssRules);
+      if (rule.selectorText && /:hover|:focus-visible/.test(rule.selectorText))
+        for (const part of rule.selectorText.split(",")) {
+          try {
+            document
+              .querySelectorAll(part.split(/:(?:hover|focus-visible)/)[0])
+              .forEach((el) => hoverHints.add(el));
+          } catch {}
+        }
+    }
+  };
+  for (const sheet of document.styleSheets) {
+    try {
+      scan(sheet.cssRules);
+    } catch {}
+  }
+  const candidates = [
+    ...new Set([
+      ...document.querySelectorAll(
+        'a,button,[role="button"],[tabindex]:not([tabindex="-1"]),article',
+      ),
+      ...hoverHints,
+      ...elements.filter((el) => getComputedStyle(el).cursor === "pointer"),
+    ]),
+  ].filter((el) => inView(el) && reachable(el));
+  const score = (el) =>
+    (hoverHints.has(el) ? 40 : 0) +
+    (el.hasAttribute("tabindex") ? 20 : 0) +
+    (el.querySelector("img,svg,canvas") ? 20 : 0);
+  const groups = new Set();
+  const targets = candidates
+    .sort((a, b) => score(b) - score(a))
+    .filter((el) => {
+      if (
+        candidates.some(
+          (parent) =>
+            parent !== el &&
+            parent.contains(el) &&
+            score(parent) >= score(el) &&
+            parent.getBoundingClientRect().height < innerHeight * 0.9,
+        )
+      )
+        return false;
+      const key = el.tagName + "|" + el.getAttribute("class");
+      if (groups.has(key)) return false;
+      groups.add(key);
+      return true;
+    })
+    .slice(0, 8)
+    .map((el) => ({
+      ...sample(el),
+      group: el.tagName + "|" + el.getAttribute("class"),
+    }));
+  const forbidden =
+    /login|log.?out|sign.?in|sign.?up|register|subscribe|purchase|buy|pay|submit|delete|remove|accept|agree|download|install|connect|close|dismiss|登录|注册|订阅|购买|支付|提交|删除|同意/i;
+  const buttons = [
+    ...document.querySelectorAll('button,[role="button"]'),
+  ].filter(
+    (el) =>
+      inView(el) &&
+      reachable(el) &&
+      !el.closest("form") &&
+      !el.hasAttribute("disabled") &&
+      !forbidden.test(
+        [
+          el.textContent,
+          el.getAttribute("aria-label"),
+          el.getAttribute("title"),
+          el.getAttribute("name"),
+        ].join(" "),
+      ),
+  );
+  const entryTargets = buttons
+    .filter((el) => {
+      for (
+        let n = el.parentElement;
+        n && n !== document.body;
+        n = n.parentElement
+      ) {
+        const r = n.getBoundingClientRect(),
+          s = getComputedStyle(n);
+        if (
+          r.width * r.height >= innerWidth * innerHeight * 0.8 &&
+          /fixed|absolute/.test(s.position) &&
+          Number(s.zIndex) > 0
+        ) {
+          if (
+            n.querySelector(
+              'form,input,textarea,select,[contenteditable="true"]',
+            )
+          )
+            return false;
+          return buttons.filter((b) => n.contains(b)).length === 1;
+        }
+      }
+      return false;
+    })
+    .slice(0, 1)
+    .map(sample);
+  const scrollContainers = elements
+    .filter((el) => {
+      const s = getComputedStyle(el);
+      return (
+        inView(el) &&
+        reachable(el) &&
+        /auto|scroll/.test(s.overflowY) &&
+        el.clientHeight > 120 &&
+        el.scrollHeight > el.clientHeight + 50
+      );
+    })
+    .slice(0, 2)
     .map(sample);
   const revealTargets = elements
     .filter((el) => {
@@ -101,10 +255,13 @@
           s.transitionDuration !== "0s")
       );
     })
-    .slice(0, 8)
-    .map(sample);
-  const heading = document.querySelector("h1");
-  const body = getComputedStyle(document.body);
+    .slice(0, 12)
+    .map((el) => ({
+      ...sample(el),
+      group: el.tagName + "|" + el.getAttribute("class"),
+    }));
+  const heading = document.querySelector("h1"),
+    body = getComputedStyle(document.body);
   return {
     title: document.title.slice(0, 180),
     heading: (heading?.textContent || document.title).trim().slice(0, 180),
@@ -114,6 +271,8 @@
     color: body.color,
     layouts,
     targets,
+    entryTargets,
+    scrollContainers,
     revealTargets,
     height: document.documentElement.scrollHeight,
   };

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><title>Independent Interaction Fixture</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font: 16px system-ui;
+      background: #f5f0e6;
+    }
+    #entry {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      height: 900px;
+      text-align: center;
+      padding-top: 130px;
+    }
+    #disc {
+      margin: auto;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(#6031ef, #d4f08a, #6031ef);
+      animation: disc-spin 2s linear infinite;
+    }
+    @keyframes disc-spin {
+      from {
+        transform: rotateY(0);
+      }
+      to {
+        transform: rotateY(360deg);
+      }
+    }
+    #words {
+      font-size: 32px;
+      margin: 30px;
+    }
+    button {
+      padding: 16px;
+      cursor: pointer;
+    }
+    #experience {
+      display: none;
+      padding: 24px;
+    }
+    .person {
+      width: 24px;
+      height: 115px;
+      filter: grayscale(1);
+      cursor: pointer;
+      display: inline-block;
+      background: #f48328;
+      position: relative;
+    }
+    .person .shape {
+      display: block;
+      transition: transform 0.2s;
+      font-size: 36px;
+      color: #8a1c6a;
+    }
+    .person:hover {
+      filter: none;
+    }
+    .person:hover .shape {
+      transform: translateY(-6px);
+    }
+    #tip {
+      position: fixed;
+      display: none;
+      background: #222;
+      color: white;
+      padding: 12px;
+      border-radius: 6px;
+      z-index: 99;
+    }
+    #scroller {
+      margin-top: 30px;
+      width: 520px;
+      height: 300px;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+    }
+    #scroller section {
+      height: 300px;
+      scroll-snap-align: start;
+      padding: 30px;
+      background: #e5ddfa;
+    }
+    #scroller section:nth-child(2) {
+      background: #c3edd9;
+    }
+    #scroll-item {
+      transition: transform 0.2s;
+    }
+    #scroller.scrolled #scroll-item {
+      transform: translateX(70px);
+    }
+    .forbidden {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+    }
+  </style>
+  <div id="entry">
+    <h1>Motion reference</h1>
+    <div id="disc"></div>
+    <div id="words">Go</div>
+    <button id="enter">Begin</button>
+  </div>
+  <main id="experience">
+    <h2>People and their stories</h2>
+    <div class="person" tabindex="0" data-said="A sample story">
+      <span class="shape">◆</span>
+    </div>
+    <div class="person" tabindex="0" data-said="Another sample story">
+      <span class="shape">◆</span>
+    </div>
+    <div id="tip" role="tooltip"></div>
+    <canvas id="drawing" width="180" height="140"></canvas>
+    <div id="scroller">
+      <section><h2>First inside page</h2></section>
+      <section>
+        <h2>Second inside page</h2>
+        <div id="scroll-item">The second scene</div>
+      </section>
+    </div>
+  </main>
+  <form class="forbidden"><button>Enter experience</button></form>
+  <script>
+    let counter = 0;
+    if (!location.pathname.includes("static"))
+      setInterval(() => {
+        document.querySelector("#words").textContent = ["Go", "Grow", "Growth"][
+          counter++ % 3
+        ];
+      }, 350);
+    document.querySelector("#enter").onclick = () => {
+      document.querySelector("#entry").style.display = "none";
+      document.querySelector("#experience").style.display = "block";
+      document.body.dataset.entered = "true";
+    };
+    for (const person of document.querySelectorAll(".person")) {
+      person.onpointerenter = () => {
+        tip.textContent = person.dataset.said;
+        tip.style.display = "block";
+      };
+      person.onpointermove = (event) => {
+        tip.style.left = event.clientX + 20 + "px";
+        tip.style.top = Math.max(0, event.clientY - 60) + "px";
+      };
+      person.onpointerleave = () => {
+        tip.style.display = "none";
+      };
+    }
+    document.querySelector("#scroller").onscroll = (event) =>
+      event.currentTarget.classList.toggle(
+        "scrolled",
+        event.currentTarget.scrollTop > 100,
+      );
+    const canvas = document.querySelector("#drawing"),
+      ctx = canvas.getContext("2d");
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, 180, 140);
+      ctx.fillStyle = "#7133ce";
+      ctx.fillRect(50 + Math.sin(t) * 30, 40, 45, 45);
+      t += 0.15;
+      if (!location.pathname.includes("static")) requestAnimationFrame(draw);
+    }
+    draw();
+    document.querySelector("form").onsubmit = (event) => {
+      event.preventDefault();
+      document.body.dataset.forbidden = "true";
+    };
+  </script>
+</html>

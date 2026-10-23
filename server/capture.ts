@@ -7,10 +7,12 @@ import {
 import { mkdir, rename } from "node:fs/promises";
 import { basename, join } from "node:path";
 import { performance } from "node:perf_hooks";
-import type { Finding, Frame, ReportRun } from "../shared/types";
+import type { ReportRun } from "../shared/types";
 import { runDirectory } from "./store";
 import { validatePublicUrl } from "./url-policy";
-import { baseFindings, collectPageEvidence, sampleElement } from "./analyze";
+import { baseFindings, collectPageEvidence } from "./analyze";
+import { observeMotion } from "./observe-motion";
+import { CAPTURE_TIMEOUT_MS, MAX_FINDINGS } from "../shared/limits";
 import { createCaptureProxy } from "./network-proxy";
 
 type CaptureOptions = {
@@ -18,20 +20,15 @@ type CaptureOptions = {
   onUpdate: (patch: ReportRun) => Promise<void>;
   trustedFixture?: boolean;
 };
-const changedProperties = [
-  "transform",
-  "opacity",
-  "box-shadow",
-  "border-color",
-  "background-color",
-  "color",
-];
 
 export async function captureRun(
   run: ReportRun,
   options: CaptureOptions,
 ): Promise<ReportRun> {
-  const signal = AbortSignal.any([options.signal, AbortSignal.timeout(90000)]);
+  const signal = AbortSignal.any([
+    options.signal,
+    AbortSignal.timeout(CAPTURE_TIMEOUT_MS),
+  ]);
   let browser: Browser | undefined;
   let context: BrowserContext | undefined;
   let page: Page | undefined;
@@ -62,20 +59,7 @@ export async function captureRun(
     run.media.files.push(name);
     return name;
   };
-  const takeFrames = async (
-    prefix: string,
-    actionStart: number,
-    count = 9,
-  ): Promise<Frame[]> => {
-    const frames: Frame[] = [];
-    for (let i = 0; i < count; i++) {
-      checkpoint();
-      if (i) await page!.waitForTimeout(80);
-      const elapsedMs = Math.round(performance.now() - actionStart);
-      frames.push({ file: await screenshot(`${prefix}-${i}.png`), elapsedMs });
-    }
-    return frames;
-  };
+
   try {
     checkpoint();
     if (!trustedOrigin) await validatePublicUrl(run.url);
@@ -165,173 +149,12 @@ export async function captureRun(
     run.coverage.actions.push("页面读取：标题、字体、底色与布局");
     await update("observing", "观察悬停与滚动");
 
-    for (const [index, target] of raw.targets.entries()) {
-      checkpoint();
-      if (run.findings.length >= 5) break;
-      try {
-        const locator = page.locator(target.selector).first();
-        await locator.scrollIntoViewIfNeeded();
-        await page.mouse.move(2, 895);
-        await page.waitForTimeout(350);
-        const before = await sampleElement(page, target.selector);
-        const box = await locator.boundingBox();
-        if (!box) continue;
-        const clipStart = elapsedSeconds();
-        const actionStart = performance.now();
-        await page.mouse.move(
-          box.x + box.width / 2,
-          box.y + Math.min(box.height / 2, 400),
-        );
-        const frames = await takeFrames(`hover-${index}`, actionStart);
-        const after = await sampleElement(page, target.selector);
-        const changed = changedProperties.filter(
-          (prop) => before[prop] !== after[prop],
-        );
-        run.coverage.actions.push(`悬停：${target.label}`);
-        if (!changed.length) continue;
-        const words: Record<string, string> = {
-          transform: "位置或形态",
-          opacity: "透明度",
-          "box-shadow": "阴影",
-          "border-color": "边框颜色",
-          "background-color": "背景颜色",
-          color: "文字颜色",
-        };
-        const finding: Finding = {
-          id: `hover-${index}`,
-          title:
-            target.tag === "button"
-              ? "按钮悬停反馈"
-              : index
-                ? "链接悬停反馈"
-                : "卡片悬停反馈",
-          category: "motion",
-          summary: `鼠标移入“${target.label}”后，${changed.map((p) => words[p]).join("、")}发生变化。这里保留了动作过程与前后样式，便于核对。`,
-          trigger: "鼠标悬停",
-          changes: changed.map((p) => words[p]).join(" · "),
-          implementation:
-            "可从 CSS 过渡与 hover／focus-visible 状态开始；这是复现建议，原站是否采用同样实现尚未确认。",
-          termIds: ["trigger.hover", "parameter.duration", "parameter.easing"],
-          evidenceStatus: "observed",
-          selector: target.selector,
-          screenshot: frames.at(-1)!.file,
-          frames,
-          clip: {
-            file: "recording.webm",
-            startSeconds: clipStart,
-            endSeconds: elapsedSeconds(),
-          },
-          facts: [
-            ...changed.map((prop) => ({
-              label: prop,
-              value: `${before[prop]} → ${after[prop]}`,
-              basis: "measured" as const,
-            })),
-            {
-              label: "transition-duration",
-              value: after["transition-duration"],
-              basis: "measured",
-            },
-            {
-              label: "缓动曲线",
-              value: after["transition-timing-function"],
-              basis: "measured",
-            },
-          ],
-          limitations: [
-            "原站动画库未知；transform 的变化不等于已确认视差、磁吸或具体位移方向。",
-            "关键帧时间相对于本次动作采样；视频区间按录制页创建时刻定位，可能存在少量启动偏差。",
-          ],
-        };
-        run.findings.push(finding);
-        await update("observing", "记录原站交互片段");
-      } catch (error) {
-        checkpoint();
-        run.warnings.push(
-          `一个悬停目标未能完整记录：${error instanceof Error ? error.message.split("\n")[0] : "目标变化"}`,
-        );
-      }
-    }
-
-    await page.mouse.move(2, 2);
-    await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
-    await page.waitForTimeout(150);
-    const scrollBefore = await Promise.all(
-      raw.revealTargets.map(async (t) => ({
-        target: t,
-        before: await sampleElement(page!, t.selector).catch(
-          () => ({}) as Record<string, string>,
-        ),
-      })),
-    );
-    const scrollStart = elapsedSeconds();
-    const scrollActionStart = performance.now();
-    const scrollFrames: Frame[] = [];
-    const scrollChanges: { selector: string; before: string; after: string }[] =
-      [];
-    const maxScroll = Math.max(0, raw.height - 900);
-    for (let i = 0; i < 9 && maxScroll > 0; i++) {
-      checkpoint();
-      await page.evaluate(
-        (top) => window.scrollTo({ top, behavior: "instant" }),
-        (maxScroll * i) / 8,
-      );
-      await page.waitForTimeout(140);
-      scrollFrames.push({
-        file: await screenshot(`scroll-${i}.png`),
-        elapsedMs: Math.round(performance.now() - scrollActionStart),
-      });
-      for (const item of scrollBefore) {
-        const after = await sampleElement(page, item.target.selector).catch(
-          () => ({}) as Record<string, string>,
-        );
-        if (
-          after.opacity !== undefined &&
-          item.before.opacity !== undefined &&
-          after.opacity !== item.before.opacity &&
-          !scrollChanges.some((x) => x.selector === item.target.selector)
-        ) {
-          scrollChanges.push({
-            selector: item.target.selector,
-            before: item.before.opacity,
-            after: after.opacity,
-          });
-        }
-      }
-    }
-    run.coverage.actions.push(
-      `滚动采样：${scrollFrames.length}个位置，页面高度${raw.height}px`,
-    );
-    if (scrollChanges.length && run.findings.length < 6) {
-      run.findings.push({
-        id: "scroll-reveal",
-        title: "滚动显现",
-        category: "motion",
-        summary: `滚动经过页面时，${scrollChanges.length}个目标的透明度发生了变化。可以参考原站片段判断是否符合你想要的进入效果。`,
-        trigger: "滚动经过目标区域",
-        changes: "透明度随观察过程变化",
-        implementation:
-          "候选方案是进入视口后触发淡入；是否跟随滚动进度、是否重播还需要进一步观察。",
-        termIds: ["trigger.in-view", "effect.fade", "trigger.scroll-linked"],
-        evidenceStatus: "candidate",
-        selector: scrollChanges[0].selector,
-        screenshot: scrollFrames.at(-1)!.file,
-        frames: scrollFrames,
-        clip: {
-          file: "recording.webm",
-          startSeconds: scrollStart,
-          endSeconds: elapsedSeconds(),
-        },
-        facts: scrollChanges.map((x) => ({
-          label: "opacity",
-          value: `${x.before} → ${x.after}`,
-          basis: "measured",
-        })),
-        limitations: [
-          "已观察到变化，触发语义仍是候选；未确认是滚动触发还是滚动联动。",
-        ],
-      });
-    }
+    await observeMotion(page, run, {
+      directory,
+      signal,
+      seconds: elapsedSeconds,
+      progress: (stage) => update("observing", stage),
+    });
 
     await update("processing", "检查移动布局并整理报告");
     await page.setViewportSize({ width: 390, height: 844 });
@@ -340,7 +163,7 @@ export async function captureRun(
     await screenshot("mobile.png");
     const mobile = await collectPageEvidence(page);
     run.coverage.viewports.push("390×844");
-    if (run.findings.length < 6)
+    if (run.findings.length < MAX_FINDINGS)
       run.findings.push({
         id: "mobile-layout",
         title: "移动端布局",
@@ -388,7 +211,7 @@ export async function captureRun(
         : "无法完成拆解";
     run.error =
       signal.aborted && !cancelled
-        ? "采集达到90秒上限，已停止。"
+        ? "采集达到120秒上限，已停止。"
         : cancelled
           ? undefined
           : error instanceof Error

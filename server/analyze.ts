@@ -8,6 +8,7 @@ import type { Finding } from "../shared/types";
 
 export interface ElementSample {
   selector: string;
+  group?: string;
   label: string;
   tag: string;
   styles: Record<string, string>;
@@ -28,6 +29,8 @@ export interface PageEvidence {
   }[];
   targets: ElementSample[];
   revealTargets: ElementSample[];
+  entryTargets: ElementSample[];
+  scrollContainers: ElementSample[];
   height: number;
 }
 
@@ -46,6 +49,12 @@ export async function sampleElement(
       const s = getComputedStyle(el);
       return Object.fromEntries(
         [
+          "filter",
+          "fill",
+          "stroke",
+          "rotate",
+          "scale",
+          "translate",
           "transform",
           "opacity",
           "box-shadow",

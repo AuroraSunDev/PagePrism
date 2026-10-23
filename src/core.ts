@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ReportRun, SelectionInput } from "../shared/types";
+import { MAX_FINDINGS } from "../shared/limits";
 import { terminalStatuses } from "../shared/types";
 
 export async function api<T>(
@@ -84,7 +85,7 @@ export function loadDraft(id: string): Draft {
       version: 1,
       selected: saved.selected
         .filter((v: unknown) => typeof v === "string")
-        .slice(0, 6),
+        .slice(0, MAX_FINDINGS),
       input: {
         ...empty.input,
         ...saved.input,
