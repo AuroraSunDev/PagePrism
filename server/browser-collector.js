@@ -189,13 +189,16 @@
     }));
   const forbidden =
     /login|log.?out|sign.?in|sign.?up|register|subscribe|purchase|buy|pay|submit|delete|remove|accept|agree|download|install|connect|close|dismiss|登录|注册|订阅|购买|支付|提交|删除|同意/i;
-  const buttons = [
-    ...document.querySelectorAll('button,[role="button"]'),
-  ].filter(
+  const controls = [
+    ...document.querySelectorAll(
+      'button,[role="button"],a[href],input[type="submit"],input[type="button"]',
+    ),
+  ].filter((el) => inView(el) && reachable(el));
+  const buttons = controls.filter(
     (el) =>
-      inView(el) &&
-      reachable(el) &&
-      !el.closest("form") &&
+      el.tagName === "BUTTON" &&
+      !el.form &&
+      !el.hasAttribute("formaction") &&
       !el.hasAttribute("disabled") &&
       !forbidden.test(
         [
@@ -220,13 +223,26 @@
           /fixed|absolute/.test(s.position) &&
           Number(s.zIndex) > 0
         ) {
+          const context = [
+            n.innerText,
+            n.getAttribute("aria-label"),
+            ...["aria-labelledby", "aria-describedby"].flatMap((attr) =>
+              (n.getAttribute(attr) || "")
+                .split(/\s+/)
+                .map((id) => document.getElementById(id)?.textContent || ""),
+            ),
+          ].join(" ");
           if (
+            n.matches('dialog,[role="dialog"],[role="alertdialog"]') ||
             n.querySelector(
               'form,input,textarea,select,[contenteditable="true"]',
+            ) ||
+            /\b(?:terms|consent|privacy|cookies?|policy|agreement|checkout|payment|account)\b|条款|隐私|协议|支付|注册|登录/.test(
+              context.toLowerCase(),
             )
           )
             return false;
-          return buttons.filter((b) => n.contains(b)).length === 1;
+          return controls.filter((b) => n.contains(b)).length === 1;
         }
       }
       return false;

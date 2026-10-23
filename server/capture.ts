@@ -39,6 +39,7 @@ export async function captureRun(
     ? new URL(run.url).origin
     : undefined;
   let videoStart = 0;
+  let mainNavigationComplete = false;
   const elapsedSeconds = () => (performance.now() - videoStart) / 1000;
   const update = async (status: ReportRun["status"], stage: string) => {
     run.status = status;
@@ -92,6 +93,12 @@ export async function captureRun(
         // A popup's first request can precede the context's page event.
         if (request.isNavigationRequest() && request.frame().page() !== page)
           throw new Error("新窗口导航已阻止");
+        if (
+          request.isNavigationRequest() &&
+          request.frame() === page?.mainFrame() &&
+          mainNavigationComplete
+        )
+          throw new Error("后续页面导航已阻止");
         if (!["GET", "HEAD"].includes(request.method()))
           throw new Error("写入型请求已阻止");
         const target = new URL(request.url());
@@ -126,6 +133,7 @@ export async function captureRun(
       waitUntil: "domcontentloaded",
       timeout: 25000,
     });
+    mainNavigationComplete = true;
     if (response && response.status() >= 400)
       throw new Error(`原站返回 HTTP ${response.status()}，未获得可分析页面。`);
     await page.waitForTimeout(700);

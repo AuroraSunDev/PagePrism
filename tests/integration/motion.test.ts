@@ -15,6 +15,37 @@ beforeAll(async () => {
   const html = await readFile("tests/fixtures/motion.html", "utf8");
   server = createServer((req, res) => {
     res.setHeader("Content-Type", "text/html");
+    if (req.url?.includes("later")) {
+      res.end(
+        `<style>body{margin:0}header{height:1100px}#later{height:180px;font-size:64px;animation:turn 2s linear infinite;transform-origin:left}@keyframes turn{to{transform:rotate(20deg)}}</style><header><h1>Initial still screen</h1></header><h2 id="later">Later motion</h2><footer style="height:700px"></footer>`,
+      );
+      return;
+    }
+    if (req.url?.includes("canvases")) {
+      res.end(
+        `<h1>Multiple drawing regions</h1><canvas id="still" width="220" height="180"></canvas><canvas id="moving" width="220" height="180"></canvas><script>let t=0;const c=document.querySelector('#moving').getContext('2d');function draw(){c.clearRect(0,0,220,180);c.fillStyle='red';c.fillRect(80+Math.sin(t)*50,40,70,70);t+=.1;requestAnimationFrame(draw)}draw();</script>`,
+      );
+      return;
+    }
+    if (req.url?.includes("stale-container")) {
+      res.end(
+        `<h1>Changing container</h1><div id="replaceable" style="height:300px;overflow:auto"><div style="height:1000px">Scroll me</div></div><script>document.querySelector('#replaceable').onscroll=e=>e.currentTarget.remove()</script>`,
+      );
+      return;
+    }
+    if (req.url?.includes("stale-entry")) {
+      res.end(
+        `<h1>Still usable page</h1><div style="position:fixed;inset:0;z-index:9;background:white"><button onpointerenter="this.parentElement.remove()">Begin</button></div>`,
+      );
+      return;
+    }
+    if (req.url?.includes("timer")) {
+      res.end(
+        `<h1>Autonomous text</h1><button id="timer" style="width:240px;height:60px">Count 0</button><div style="position:absolute;top:160px" id="counter">Status 0</div><script>let n=0;setInterval(()=>{document.querySelector('#timer').textContent='Count '+(++n);document.querySelector('#counter').textContent='Status '+n},50)</script>`,
+      );
+      return;
+    }
+
     res.end(
       req.url?.includes("variant")
         ? html
@@ -143,3 +174,62 @@ it("does not label a still canvas as animated", async () => {
   expect(r.status).toBe("completed");
   expect(r.findings.some((f) => f.selector === "#drawing")).toBe(false);
 }, 120000);
+
+it.each([
+  "<p>By continuing you agree to our terms</p><button>Continue</button><button>Dismiss</button>",
+  '<button form="payment">Continue</button>',
+  '<a role="button" href="https://example.com/">Explore</a>',
+])(
+  "rejects consent, associated forms and navigation as presentation entries: %s",
+  async (content) => {
+    const b = await chromium.launch();
+    try {
+      const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+      await p.setContent(
+        '<form id="payment"></form><div style="position:fixed;inset:0;z-index:9">' +
+          content +
+          "</div>",
+      );
+      expect((await collectPageEvidence(p)).entryTargets).toHaveLength(0);
+    } finally {
+      await b.close();
+    }
+  },
+);
+it.each(["later/", "canvases/", "stale-container/", "stale-entry/", "timer/"])(
+  "handles general observation boundary %s",
+  async (variant) => {
+    const r = await captureRun(createRun(base + variant, "demo"), {
+      signal: new AbortController().signal,
+      onUpdate: async () => {},
+      trustedFixture: true,
+    });
+    expect(r.status).toBe("completed");
+    expect(r.coverage.viewports).toContain("390×844");
+    if (variant === "later/")
+      expect(
+        r.findings.some(
+          (f) =>
+            f.selector === "#later" &&
+            f.facts.some((x) => x.label === "transform"),
+        ),
+      ).toBe(true);
+    if (variant === "canvases/") {
+      expect(r.findings.some((f) => f.selector === "#moving")).toBe(true);
+      expect(
+        r.coverage.actions.filter((x) => x.includes("连续观察8帧")).length,
+      ).toBeLessThanOrEqual(2);
+    }
+    if (variant.startsWith("stale"))
+      expect(r.warnings.some((x) => x.includes("跳过"))).toBe(true);
+    if (variant === "timer/") {
+      expect(r.findings.some((f) => f.trigger.includes("自动"))).toBe(true);
+      expect(
+        r.findings.some(
+          (f) => f.trigger.includes("悬停") && f.evidenceStatus === "observed",
+        ),
+      ).toBe(false);
+    }
+  },
+  120000,
+);

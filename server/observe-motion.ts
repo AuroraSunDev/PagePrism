@@ -95,7 +95,8 @@ export async function observeMotion(
     seq: Sequence,
     poster = seq.frames.length - 1,
   ) => {
-    if (recorded.has(key) || run.findings.length >= MAX_FINDINGS - 1) return;
+    if (recorded.has(key) || run.findings.length >= MAX_FINDINGS - 1)
+      return false;
     recorded.add(key);
     run.findings.push({
       ...data,
@@ -109,6 +110,7 @@ export async function observeMotion(
       },
     });
     await options.progress("保存视觉变化与原站证据");
+    return true;
   };
   const description = (change: ReturnType<typeof inferChanges>) =>
     [
@@ -130,9 +132,9 @@ export async function observeMotion(
       height: Math.max(1, Math.min(900, r.y + r.height) - y),
     };
   };
-  const observeScene = async (label: string) => {
-    await options.progress("连续观察" + label);
-    const seq = await sample(8, 420);
+  const observeScene = async (label: string, supplied?: Sequence) => {
+    if (!supplied) await options.progress("连续观察" + label);
+    const seq = supplied || (await sample(8, 420));
     const animations = new Set(
       seq.states.flatMap((s) => s.animations.map((a) => a.selector)),
     );
@@ -157,7 +159,7 @@ export async function observeMotion(
       const animation = seq.states[0].animations.find(
         (a) => a.selector === node.selector,
       );
-      await add(
+      const added = await add(
         "auto|" +
           (node.group || node.selector) +
           "|" +
@@ -168,7 +170,9 @@ export async function observeMotion(
             ((node.text ? "文字" : "") ||
               (node.tag === "img" ? "图像" : "视觉区域")),
           category: "motion",
-          trigger: "加载／自动播放（" + label + "）",
+          trigger: supplied
+            ? "滚轮后继续观察（关系待确认）"
+            : "加载／自动播放（" + label + "）",
           summary:
             "连续采样中观察到" +
             description(change) +
@@ -177,7 +181,7 @@ export async function observeMotion(
           implementation:
             "先根据片段确定变化顺序、持续时间和结束状态，再选择关键帧或时间轴实现；原站实现尚未确认。",
           termIds: ["parameter.duration", "parameter.easing"],
-          evidenceStatus: "observed",
+          evidenceStatus: supplied ? "candidate" : "observed",
           selector: node.selector,
           facts: [
             ...change.facts,
@@ -195,11 +199,11 @@ export async function observeMotion(
         },
         seq,
       );
-      count++;
+      if (added) count++;
     }
     for (const node of seq.states[0].nodes
-      .filter((n) => n.tag === "canvas")
-      .slice(0, 1)) {
+      .filter((n) => n.tag === "canvas" && !observedRegions.has(n.selector))
+      .slice(0, 2)) {
       observedRegions.add(node.selector);
       const region = visibleRegion(node.rect);
       const change = Math.max(
@@ -218,7 +222,9 @@ export async function observeMotion(
           {
             title: "画布区域的持续变化",
             category: "motion",
-            trigger: "加载／自动播放（" + label + "）",
+            trigger: supplied
+              ? "滚轮后继续观察（关系待确认）"
+              : "加载／自动播放（" + label + "）",
             summary:
               "可见画布所在区域在连续采样中发生了画面变化，具体物体和运动含义需结合片段确认。",
             changes: "画布区域的可见像素变化",
@@ -242,7 +248,7 @@ export async function observeMotion(
           seq,
         );
     }
-    run.coverage.actions.push(label + "：连续观察8帧");
+    if (!supplied) run.coverage.actions.push(label + "：连续观察8帧");
   };
   const hover = async (target: ElementSample) => {
     if (
@@ -284,6 +290,17 @@ export async function observeMotion(
       change.properties = change.properties.filter(
         (p) => !idle.properties.includes(p),
       );
+      const autonomousText =
+        idle.texts.length > 0 || idle.floatingTexts.length > 0;
+      if (idle.texts.length) {
+        change.facts = change.facts.filter((f) => f.label !== "文字变化");
+        change.texts = [];
+      }
+      if (idle.floatingTexts.length) {
+        change.facts = change.facts.filter((f) => f.label !== "出现的文字");
+        change.floatingTexts = [];
+      }
+
       const region = visibleRegion(box),
         baseline = pixelDifference(
           cropPng(seq.images[0], region),
@@ -320,7 +337,8 @@ export async function observeMotion(
             "parameter.duration",
             "parameter.easing",
           ],
-          evidenceStatus: change.facts.length ? "observed" : "candidate",
+          evidenceStatus:
+            change.facts.length && !autonomousText ? "observed" : "candidate",
           selector: target.selector,
           facts: change.facts.length
             ? change.facts
@@ -347,68 +365,83 @@ export async function observeMotion(
       );
     }
   };
+  const optional = async (label: string, action: () => Promise<void>) => {
+    try {
+      await action();
+    } catch (error) {
+      checkpoint();
+      if (
+        page.isClosed() ||
+        /^(?:chrome-error|about:neterror)/.test(page.url())
+      )
+        throw error;
+      run.warnings.push(label + "已变化或无法操作，已跳过并继续探索。");
+    }
+  };
   await observeScene("初始画面");
   let raw = await collectPageEvidence(page);
   const entry = raw.entryTargets[0];
-  if (entry) {
-    checkpoint();
-    await options.progress("探索展示入口");
-    const seq = await sample(3, 350, undefined, async (i) => {
-      if (i !== 1) return;
-      await page.locator(entry.selector).click({ timeout: 3000 });
+  if (entry)
+    await optional("展示入口", async () => {
+      checkpoint();
+      await options.progress("探索展示入口");
+      const seq = await sample(3, 350, undefined, async (i) => {
+        if (i !== 1) return;
+        await page.locator(entry.selector).click({ timeout: 3000 });
+        await page
+          .waitForFunction(
+            (selector) => {
+              const el = document.querySelector(selector);
+              if (!el) return true;
+              const s = getComputedStyle(el);
+              return (
+                s.display === "none" ||
+                s.visibility === "hidden" ||
+                Number(s.opacity) < 0.05
+              );
+            },
+            entry.selector,
+            { timeout: 5000 },
+          )
+          .catch(() => {});
+        await page.waitForTimeout(500);
+      });
+      run.coverage.actions.push(
+        "展示入口点击：" + entry.label + "（独立展示层、非表单、最多一次）",
+      );
       await page
-        .waitForFunction(
-          (selector) => {
-            const el = document.querySelector(selector);
-            if (!el) return true;
-            const s = getComputedStyle(el);
-            return (
-              s.display === "none" ||
-              s.visibility === "hidden" ||
-              Number(s.opacity) < 0.05
-            );
-          },
-          entry.selector,
-          { timeout: 5000 },
-        )
+        .waitForLoadState("networkidle", { timeout: 5000 })
         .catch(() => {});
-      await page.waitForTimeout(500);
+      await add(
+        "entry",
+        {
+          title: "入口后的画面变化",
+          category: "motion",
+          trigger: "展示入口点击",
+          summary: "操作独立展示入口后继续观察，前后画面保留为同一组证据。",
+          changes: "入口前后可见状态",
+          implementation:
+            "根据片段确认进入体验的状态切换、加载反馈和内容出现顺序。",
+          termIds: ["trigger.state-change"],
+          evidenceStatus: "candidate",
+          selector: entry.selector,
+          facts: [{ label: "入口操作", value: entry.label, basis: "observed" }],
+          limitations: [
+            ...limits,
+            "仅探索一个明确展示层中的非表单按钮；不代表遍历全部路径。",
+          ],
+        },
+        seq,
+      );
+      await observeScene("入口后画面");
     });
-    run.coverage.actions.push(
-      "展示入口点击：" + entry.label + "（独立展示层、非表单、最多一次）",
-    );
-    await page
-      .waitForLoadState("networkidle", { timeout: 5000 })
-      .catch(() => {});
-    await add(
-      "entry",
-      {
-        title: "入口后的画面变化",
-        category: "motion",
-        trigger: "展示入口点击",
-        summary: "操作独立展示入口后继续观察，前后画面保留为同一组证据。",
-        changes: "入口前后可见状态",
-        implementation:
-          "根据片段确认进入体验的状态切换、加载反馈和内容出现顺序。",
-        termIds: ["trigger.state-change"],
-        evidenceStatus: "candidate",
-        selector: entry.selector,
-        facts: [{ label: "入口操作", value: entry.label, basis: "observed" }],
-        limitations: [
-          ...limits,
-          "仅探索一个明确展示层中的非表单按钮；不代表遍历全部路径。",
-        ],
-      },
-      seq,
-    );
-    await observeScene("入口后画面");
-  }
   const reveal = new Map<string, ElementSample>();
   let previousY = -1,
     unchanged = 0,
     positions = 0;
   for (let step = 0; step < 22; step++) {
     checkpoint();
+    if (run.findings.length >= MAX_FINDINGS - 1) break;
     raw = await collectPageEvidence(page);
     const current = await readVisualState(page);
     if (
@@ -423,48 +456,50 @@ export async function observeMotion(
     for (const container of raw.scrollContainers) {
       if (scrolled.has(container.selector)) continue;
       scrolled.add(container.selector);
-      const el = page.locator(container.selector).first(),
-        box = await el.boundingBox();
-      if (!box) continue;
-      const before = await el.evaluate((e) => e.scrollTop);
-      const seq = await sample(4, 250, undefined, async (i) => {
-        if (i) {
-          await page.mouse.move(
-            box.x + box.width / 2,
-            box.y + Math.min(box.height / 2, 400),
-          );
-          await page.mouse.wheel(0, box.height * 0.85);
-        }
-      });
-      const after = await el.evaluate((e) => e.scrollTop);
-      run.coverage.actions.push(
-        `容器滚轮：${Math.round(before)} → ${Math.round(after)}px`,
-      );
-      if (after !== before)
-        await add(
-          "container|" + container.selector,
-          {
-            title: "容器内的内容变化",
-            category: "motion",
-            trigger: "容器内滚轮",
-            summary: "在容器内发送滚轮后，内部位置和可见内容发生变化。",
-            changes: "容器滚动与可见内容",
-            implementation:
-              "明确实际滚动容器，再根据证据决定滚动、吸附或进入动画。",
-            termIds: ["trigger.scroll-linked"],
-            evidenceStatus: "observed",
-            selector: container.selector,
-            facts: [
-              {
-                label: "scrollTop",
-                value: before + " → " + after,
-                basis: "measured",
-              },
-            ],
-            limitations: limits,
-          },
-          seq,
+      await optional("滚动容器", async () => {
+        const el = page.locator(container.selector).first(),
+          box = await el.boundingBox();
+        if (!box) return;
+        const before = await el.evaluate((e) => e.scrollTop);
+        const seq = await sample(4, 250, undefined, async (i) => {
+          if (i) {
+            await page.mouse.move(
+              box.x + box.width / 2,
+              box.y + Math.min(box.height / 2, 400),
+            );
+            await page.mouse.wheel(0, box.height * 0.85);
+          }
+        });
+        const after = await el.evaluate((e) => e.scrollTop);
+        run.coverage.actions.push(
+          `容器滚轮：${Math.round(before)} → ${Math.round(after)}px`,
         );
+        if (after !== before)
+          await add(
+            "container|" + container.selector,
+            {
+              title: "容器内的内容变化",
+              category: "motion",
+              trigger: "容器内滚轮",
+              summary: "在容器内发送滚轮后，内部位置和可见内容发生变化。",
+              changes: "容器滚动与可见内容",
+              implementation:
+                "明确实际滚动容器，再根据证据决定滚动、吸附或进入动画。",
+              termIds: ["trigger.scroll-linked"],
+              evidenceStatus: "observed",
+              selector: container.selector,
+              facts: [
+                {
+                  label: "scrollTop",
+                  value: before + " → " + after,
+                  basis: "measured",
+                },
+              ],
+              limitations: limits,
+            },
+            seq,
+          );
+      });
     }
     const position = await page.evaluate(() => ({
       y: scrollY,
@@ -476,16 +511,23 @@ export async function observeMotion(
     if (unchanged >= 2) break;
     previousY = position.y;
     await page.mouse.move(720, 450);
-    const seq = await sample(3, 250, undefined, async (i) => {
+    const seq = await sample(4, 250, undefined, async (i) => {
       if (i === 1) await page.mouse.wheel(0, 720);
+    });
+    await observeScene("后续区域", {
+      ...seq,
+      states: seq.states.slice(-2),
+      images: seq.images.slice(-2),
+      frames: seq.frames.slice(-2),
     });
     const next = await page.evaluate(() => scrollY);
     for (const [selector, before] of reveal) {
       const el = page.locator(selector).first();
       if (!(await el.count())) continue;
-      const box = await el.boundingBox();
+      const box = await el.boundingBox().catch(() => null);
       if (!box || box.y + box.height < 0 || box.y > 900) continue;
-      const after = await sampleElement(page, selector);
+      const after = await sampleElement(page, selector).catch(() => null);
+      if (!after) continue;
       const props = [
         "opacity",
         "transform",

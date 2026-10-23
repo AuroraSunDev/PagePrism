@@ -19,11 +19,19 @@ beforeAll(async () => {
   server = createServer(async (req, res) => {
     if (
       req.url === "/secret" ||
+      req.url === "/reference/escaped/" ||
       req.url?.includes("/popup/") ||
       req.method === "POST"
     ) {
       forbiddenRequests++;
       res.end("should not reach");
+      return;
+    }
+    if (req.url === "/reference/navigation/") {
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.end(
+        `<h1>Original page</h1><div style="position:fixed;inset:0;z-index:9;background:white"><button onclick="location.href='/reference/escaped/'">Begin</button></div>`,
+      );
       return;
     }
     if (req.url === "/reference/guard/") {
@@ -117,6 +125,19 @@ describe("real browser evidence", () => {
       trustedFixture: true,
     });
     expect(result.status).toBe("cancelled");
+  });
+  it("blocks main-frame navigation attempted by a presentation entry", async () => {
+    forbiddenRequests = 0;
+    const result = await captureRun(createRun(base + "navigation/", "demo"), {
+      signal: new AbortController().signal,
+      onUpdate: async () => {},
+      trustedFixture: true,
+    });
+    expect(forbiddenRequests).toBe(0);
+    expect(result.findings.length).toBeGreaterThan(0);
+    expect(result.warnings.some((x) => x.includes("阻止受限网络请求"))).toBe(
+      true,
+    );
   });
   it("returns selectors resolving to deeply nested hover and reveal targets", async () => {
     const browser = await chromium.launch({ headless: true });
