@@ -9,6 +9,11 @@ import {
 import type { DictionaryTerm, ReportRun } from "../../shared/types";
 import { termMap } from "../../shared/dictionary";
 import { mediaUrl, navigate, type Draft } from "../core";
+import {
+  phaseLabels,
+  parameterLabels,
+  coverageText,
+} from "../../shared/behavior";
 import { MediaViewer } from "../components/MediaViewer";
 
 export function ReportView({
@@ -130,6 +135,16 @@ export function ReportView({
             <p>
               {run.coverage.engine} · {run.coverage.viewports.join(" / ")}
             </p>
+            {!!run.coverage.checks?.length && (
+              <ul className="coverage-checks" aria-label="观察检查记录">
+                {run.coverage.checks.map((c) => (
+                  <li key={c.id}>
+                    <strong>{coverageText(c)}</strong>
+                    {c.reason && <span>{c.reason}</span>}
+                  </li>
+                ))}
+              </ul>
+            )}
             <ul>
               {run.coverage.actions.map((x) => (
                 <li key={x}>{x}</li>
@@ -193,6 +208,39 @@ export function ReportView({
               <dd>{finding.implementation}</dd>
             </div>
           </dl>
+          {finding.behavior && (
+            <section className="interaction-story" aria-label="交互过程与参数">
+              <h3>交互过程</h3>
+              <ol>
+                {finding.behavior.phases.map((p) => (
+                  <li key={p.name}>
+                    <strong>{phaseLabels[p.name]}</strong>
+                    <p>{p.description}</p>
+                    <span>采样 +{(p.elapsedMs / 1000).toFixed(2)}s</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="muted">
+                阶段时间为实际采样位置，不是动画时长。组合关系属于基于采样的解释。
+              </p>
+              <details>
+                <summary>参数来源与未知项</summary>
+                <dl>
+                  {finding.behavior.parameters.map((p, i) => (
+                    <div key={i}>
+                      <dt>{parameterLabels[p.name] || p.name}</dt>
+                      <dd>
+                        {p.status === "observed"
+                          ? `${p.value}（CSS声明）`
+                          : "未确认"}
+                        <small>{p.reason}</small>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </details>
+            </section>
+          )}
           <section className="observed-facts">
             <h3>
               {finding.evidenceStatus === "candidate"

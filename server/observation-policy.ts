@@ -74,7 +74,8 @@ export class ObservationPolicy {
         r = this.rows.get(k)!;
       return (
         !this.active.has(k) &&
-        r.status === "pending" &&
+        (r.status === "pending" ||
+          (r.status === "blocked" && r.selector !== t.selector)) &&
         (r.attempts === 0
           ? this.groups.size < this.maxGroups
           : this.followups < this.maxFollowups && r.attempts < 2)

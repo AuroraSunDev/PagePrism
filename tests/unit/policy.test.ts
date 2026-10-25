@@ -65,3 +65,16 @@ it("uses declared delay plus duration with a hard observation cap", () => {
     declaredHoldMs({ "transition-duration": "12s", "transition-delay": "5s" }),
   ).toBe(2000);
 });
+it("can inspect another representative after the first instance is blocked", () => {
+  const p = new ObservationPolicy(2, 2),
+    a = target("a"),
+    b = { ...target("a"), selector: "#replacement" };
+  const action = p.next([a])!;
+  p.finish(action, {
+    outcome: "uncertain",
+    states: [],
+    findings: [],
+    blocked: true,
+  });
+  expect(p.next([b])?.target.selector).toBe("#replacement");
+});

@@ -85,3 +85,87 @@ it.each([
     }
   },
 );
+it("exports selected behavior phases and unknown timing without leaking unrelated checks", () => {
+  const behavior = {
+    kind: "hover" as const,
+    participants: [
+      {
+        selector: "#subject",
+        role: "target" as const,
+        label: "Artwork",
+        properties: ["filter"],
+        firstSeenMs: 300,
+      },
+    ],
+    phases: [
+      {
+        name: "before" as const,
+        frame: "before.png",
+        elapsedMs: 20,
+        description: "默认画面",
+      },
+      {
+        name: "active" as const,
+        frame: "active.png",
+        elapsedMs: 900,
+        description: "图像变化",
+      },
+    ],
+    restoration: "unknown" as const,
+    parameters: [
+      {
+        name: "duration",
+        value: null,
+        status: "unknown" as const,
+        source: "not-inspected",
+      },
+    ],
+    interpretation: {
+      status: "inferred" as const,
+      summary: "多状态反馈",
+      limitation: "完整时序未知",
+    },
+  };
+  const observed = {
+    ...run,
+    findings: [
+      { ...run.findings[0], behavior },
+      {
+        ...run.findings[1],
+        behavior: {
+          ...behavior,
+          phases: [
+            {
+              name: "active" as const,
+              frame: "EXCLUDED-FRAME.png",
+              elapsedMs: 4,
+              description: "excluded",
+            },
+          ],
+        },
+      },
+    ],
+    coverage: {
+      ...run.coverage,
+      checks: [
+        {
+          id: "c-other",
+          kind: "hover" as const,
+          label: "EXCLUDED-CHECK",
+          status: "checked" as const,
+          outcome: "change" as const,
+          attempts: 1,
+          observedStates: ["before", "active"],
+          findingIds: ["two"],
+        },
+      ],
+    },
+  };
+  const text = buildAgentBrief(observed, ["one"], input);
+  expect(text).toContain("before.png");
+  expect(text).toContain("active.png");
+  expect(text).toContain("时长：未确认");
+  expect(text).not.toContain("EXCLUDED");
+  expect(text).toContain("采样位置");
+  expect(buildDesignMarkdown(observed)).toContain("EXCLUDED-CHECK");
+});

@@ -14,6 +14,7 @@ export interface VisualNode {
   timing?: Record<string, string>;
 }
 export interface VisualState {
+  missingTarget?: boolean;
   nodes: VisualNode[];
   floating: VisualNode[];
   animations: {

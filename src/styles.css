@@ -1956,3 +1956,65 @@ a svg {
   min-height: 34px;
   padding: 7px 12px;
 }
+
+/* Evidence-guided interaction descriptions reuse the existing report surface. */
+.coverage-checks {
+  max-height: 280px;
+  overflow-y: auto;
+}
+.coverage-checks li {
+  margin-bottom: 12px;
+}
+.coverage-checks strong {
+  font-size: 11px;
+  font-weight: 500;
+}
+.coverage-checks span {
+  display: block;
+  opacity: 0.75;
+  margin-top: 4px;
+}
+.interaction-story {
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+  font-size: 13px;
+}
+.interaction-story h3 {
+  margin: 0 0 18px;
+  font-size: 15px;
+}
+.interaction-story ol {
+  margin: 0;
+  padding-left: 20px;
+}
+.interaction-story li {
+  padding: 0 0 15px 5px;
+}
+.interaction-story li p {
+  margin: 7px 0;
+  line-height: 1.7;
+}
+.interaction-story li span {
+  color: var(--muted);
+  font-size: 11px;
+}
+.interaction-story summary {
+  cursor: pointer;
+  padding: 12px 0;
+}
+.interaction-story dl > div {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 12px;
+  padding: 10px 0;
+}
+.interaction-story dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.interaction-story small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  line-height: 1.6;
+}

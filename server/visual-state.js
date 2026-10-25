@@ -108,6 +108,8 @@
   };
   const all = [...document.querySelectorAll("body *")].slice(0, 5000);
   const root = targetSelector ? document.querySelector(targetSelector) : null;
+  if (targetSelector && !root)
+    return { nodes: [], floating: [], animations: [], missingTarget: true };
   const animatedTargets = new Set(
     document
       .getAnimations()
@@ -135,6 +137,18 @@
           ...node(root),
           selector: selector(root) + pseudo,
           text: s.content,
+          timing: Object.fromEntries(
+            [
+              "transition-duration",
+              "transition-delay",
+              "transition-timing-function",
+              "animation-name",
+              "animation-duration",
+              "animation-delay",
+              "animation-timing-function",
+              "animation-iteration-count",
+            ].map((k) => [k, s.getPropertyValue(k)]),
+          ),
           styles: Object.fromEntries(
             properties.map((k) => [k, s.getPropertyValue(k)]),
           ),

@@ -1,4 +1,11 @@
-import type { ReportRun, SelectionInput } from "./types";
+import type { ReportRun, SelectionInput, Behavior } from "./types";
+import {
+  behaviorSummary,
+  behaviorAcceptance,
+  phaseLabels,
+  parameterLabels,
+  coverageText,
+} from "./behavior";
 import { termMap } from "./dictionary";
 
 const oneLine = (value: string) =>
@@ -25,6 +32,24 @@ const captureStatus = (run: ReportRun) => [
           ? "本轮采集结束，覆盖范围以实际执行动作和限制为准。"
           : "本轮采集未完整结束，仅保留已经获得的观察。"),
   ),
+];
+
+const behaviorMarkdown = (b: Behavior) => [
+  "交互组合（基于采样的解释）：",
+  quote(behaviorSummary(b)),
+  "阶段证据：",
+  ...b.phases.map(
+    (p) =>
+      `- ${phaseLabels[p.name]}：${oneLine(p.description)}；${oneLine(p.frame)}（采样 +${(p.elapsedMs / 1000).toFixed(2)}s）`,
+  ),
+  "参数来源：",
+  ...b.parameters.map(
+    (p) =>
+      `- ${parameterLabels[p.name] || oneLine(p.name)}：${p.status === "unknown" ? "未确认" : oneLine(p.value || "")}（${p.status === "observed" ? "CSS声明" : "未知"}）${p.reason ? "；" + oneLine(p.reason) : ""}`,
+  ),
+  "针对本效果的验收：",
+  ...behaviorAcceptance(b).map((x) => "- " + oneLine(x)),
+  "解释边界：" + oneLine(b.interpretation.limitation),
 ];
 
 export function buildAgentBrief(
@@ -81,6 +106,10 @@ export function buildAgentBrief(
           ]
         : []),
       `术语：${f.termIds.map((id) => termMap.get(id)?.name.zh || id).join("、")}`,
+      ...(f.behavior ? behaviorMarkdown(f.behavior) : []),
+      ...(run.coverage.checks || [])
+        .filter((c) => c.findingIds.includes(f.id))
+        .map((c) => "检查记录：" + oneLine(coverageText(c))),
       "尚未确认：",
       ...f.limitations.map((s) => `- ${s}`),
     );
@@ -133,12 +162,19 @@ export function buildDesignMarkdown(run: ReportRun): string {
       ),
       "",
       `建议：${f.implementation}`,
+      ...(f.behavior ? behaviorMarkdown(f.behavior) : []),
       ...f.limitations.map((x) => `- 未知／限制：${x}`),
     );
   }
   lines.push(
     "",
     "## 已执行动作",
+    ...(run.coverage.checks || []).map(
+      (c) =>
+        "- " +
+        oneLine(coverageText(c)) +
+        (c.reason ? "；" + oneLine(c.reason) : ""),
+    ),
     ...run.coverage.actions.map((x) => `- ${x}`),
     "",
     "## 未覆盖与警告",

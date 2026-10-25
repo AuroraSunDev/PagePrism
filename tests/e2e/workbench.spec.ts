@@ -44,6 +44,12 @@ test("real demo → contextual dictionary → select → purpose → downloadabl
     .getByRole("button", { name: /^悬停变化：/ })
     .first()
     .click();
+  await expect(
+    page.getByRole("heading", { name: "交互过程", exact: true }),
+  ).toBeVisible();
+  await page.getByText("本次观察范围", { exact: true }).click();
+  await expect(page.getByRole("list", { name: "观察检查记录" })).toBeVisible();
+  await page.getByText("本次观察范围", { exact: true }).click();
   const mobileTab = page.getByRole("button", { name: "原站画面", exact: true });
   if (await mobileTab.isVisible()) await mobileTab.click();
   await expect
