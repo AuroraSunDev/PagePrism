@@ -34,5 +34,5 @@ Interfaces: capture emits unchanged Finding plus optional behavior and checks; s
 Files: evaluation/cases.ts, evaluation/run.ts, evaluation/README.md, package.json, README.md, docs/testing/2026-10-25-evidence-guided.md.
 Interfaces: gold expectations match observed trigger/target/property; JSON records scope/version/results/duration/false positives/structural completeness; runner accepts baseline source directory and candidate root.
 - [x] 用独立8样例与冻结基线0b2480d对照，保留真实结果；金标由样例行为定义。
-- [ ] 公网参考复核并说明范围；完整单元／集成／E2E、构建、格式、diff验证。
-- [ ] 一次新上下文最终审查，重要项一次RED→GREEN修正；更新验证记录和交付。
+- [x] 公网参考复核并说明范围；完整单元／集成／E2E、构建、格式、diff验证。
+- [x] 一次新上下文最终审查，重要项一次RED→GREEN修正；更新验证记录和交付。

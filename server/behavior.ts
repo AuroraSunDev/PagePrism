@@ -1,6 +1,7 @@
 import type { Behavior, Frame, ObservationKind } from "../shared/types";
 import {
   inferChanges,
+  changeIdentity,
   sameVisualValue,
   type VisualState,
   type ChangeEvent,
@@ -74,24 +75,52 @@ export function buildBehavior(
       phases.push({ name, frame: f.file, elapsedMs: f.elapsedMs, description });
   };
   addPhase("before", beforeIndex, "已记录操作前的原站画面。");
+  const changeKeys = new Set(events.map(changeIdentity));
+  const changesAt = (index: number) =>
+    states[index]
+      ? inferChanges([baseline, states[index]]).events.filter((e) =>
+          changeKeys.has(changeIdentity(e)),
+        )
+      : [];
+  const describe = (changes: ChangeEvent[]) =>
+    participants
+      .map((p) => {
+        const properties = p.properties.filter((property) =>
+          changes.some(
+            (e) => e.selector === p.selector && e.property === property,
+          ),
+        );
+        return properties.length
+          ? `${roleLabels[p.role]}：${properties.map((k) => propertyLabels[k] || k).join("、")}`
+          : "";
+      })
+      .filter(Boolean)
+      .join("；");
+  // Prefer the caller's frame only when it supports as many changes as alternatives.
+  const preferred = ctx.activeIndex ?? states.length - 1;
+  let activeIndex = preferred,
+    activeChanges: ChangeEvent[] = [];
+  for (const index of new Set([preferred, ...states.keys()])) {
+    if (index <= beforeIndex || index >= (ctx.exitIndex ?? states.length))
+      continue;
+    const changes = changesAt(index);
+    if (changes.length > activeChanges.length) {
+      activeIndex = index;
+      activeChanges = changes;
+    }
+  }
   addPhase(
     "active",
-    ctx.activeIndex ?? frames.length - 1,
-    participants.length
-      ? participants
-          .map(
-            (p) =>
-              `${roleLabels[p.role]}：${p.properties.map((k) => propertyLabels[k] || k).join("、")}`,
-          )
-          .join("；")
-      : "动作中的可见画面已保存，具体变化需结合片段核对。",
+    activeIndex,
+    describe(activeChanges) || "动作中的可见画面已保存，本帧未确认具体变化。",
   );
   let restoration: Behavior["restoration"] = "unknown";
   if (ctx.exitIndex !== undefined) {
     const end = states[ctx.exitIndex];
     if (end && events.length) {
       let comparable = 0,
-        changed = false;
+        changed = false,
+        incomplete = false;
       for (const event of events) {
         if (event.kind === "floating") {
           const original = baseline.floating.find(
@@ -108,7 +137,16 @@ export function buildBehavior(
             (n) => n.selector === event.selector,
           ),
           after = end.nodes.find((n) => n.selector === event.selector);
-        if (!original || !after) continue;
+        if (
+          !original ||
+          !after ||
+          (event.kind === "style" &&
+            (original.styles[event.property] === undefined ||
+              after.styles[event.property] === undefined))
+        ) {
+          incomplete = true;
+          continue;
+        }
         comparable++;
         if (
           event.kind === "style"
@@ -121,16 +159,20 @@ export function buildBehavior(
         )
           changed = true;
       }
-      if (comparable) restoration = changed ? "changed" : "restored";
+      if (comparable && changed) restoration = "changed";
+      else if (comparable && !incomplete) restoration = "restored";
     }
     addPhase(
       "after",
       ctx.exitIndex,
-      restoration === "restored"
+      (restoration === "restored"
         ? "移开后的采样回到了默认属性／文字状态。"
         : restoration === "changed"
           ? "动作后仍有状态变化，后续恢复过程未验证。"
-          : "已记录动作后画面，结束与恢复关系尚未确认。",
+          : "已记录动作后画面，结束与恢复关系尚未确认。") +
+        (describe(changesAt(ctx.exitIndex))
+          ? ` 本帧可见变化：${describe(changesAt(ctx.exitIndex))}。`
+          : ""),
     );
   }
   const relevant = states

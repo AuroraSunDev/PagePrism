@@ -141,7 +141,9 @@ export async function observeMotion(
       behavior,
       id: oldId || `motion-${serial++}`,
       frames: seq.frames,
-      screenshot: seq.frames[poster].file,
+      screenshot:
+        behavior.phases.find((p) => p.name === "active")?.frame ||
+        seq.frames[poster].file,
       clip: {
         file: "recording.webm",
         startSeconds: seq.start,

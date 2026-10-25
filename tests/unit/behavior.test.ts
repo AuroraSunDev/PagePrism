@@ -1,5 +1,6 @@
 import { it, expect } from "vitest";
 import { buildBehavior } from "../../server/behavior";
+import { propertyLabels } from "../../shared/behavior";
 import {
   inferChanges,
   removeAutonomousChanges,
@@ -63,4 +64,79 @@ it("links phases and participants to actual frames and leaves unmeasured timing 
     status: "unknown",
     value: null,
   });
+});
+const framesFor = (states: VisualState[]) =>
+  states.map((_, i) => ({ file: `f-${i}.png`, elapsedMs: i * 180 }));
+it("selects a transient active change instead of a later baseline frame", () => {
+  const states = ["none", "none", "none", "blur(2px)", "none", "none"].map(
+    (filter) => snapshot(filter, "0"),
+  );
+  const b = buildBehavior(states, framesFor(states), {
+    kind: "hover",
+    selector: "#subject",
+    beforeIndex: 1,
+    activeIndex: 4,
+    exitIndex: 5,
+  });
+  expect(b.phases.find((p) => p.name === "active")?.frame).toBe("f-3.png");
+});
+it("keeps exit-only changes out of the active description", () => {
+  const states = ["none", "none", "none", "none", "none", "blur(2px)"].map(
+    (filter) => snapshot(filter, "0"),
+  );
+  const b = buildBehavior(states, framesFor(states), {
+    kind: "hover",
+    selector: "#subject",
+    beforeIndex: 1,
+    activeIndex: 4,
+    exitIndex: 5,
+  });
+  expect(b.phases.find((p) => p.name === "active")?.description).not.toContain(
+    propertyLabels.filter,
+  );
+  expect(b.phases.find((p) => p.name === "after")?.description).toContain(
+    propertyLabels.filter,
+  );
+});
+it("does not describe changes from different frames as simultaneous", () => {
+  const states: VisualState[] = [0, 1, 2, 3, 4, 5].map((i) => ({
+    nodes: [
+      node("#subject", i === 3 ? "blur(2px)" : "none"),
+      node("#child", "none", i === 4 ? "Changed child" : "Child"),
+    ],
+    floating: [],
+    animations: [],
+  }));
+  const b = buildBehavior(states, framesFor(states), {
+    kind: "hover",
+    selector: "#subject",
+    beforeIndex: 1,
+    activeIndex: 4,
+    exitIndex: 5,
+  });
+  const phase = b.phases.find((p) => p.name === "active")!;
+  expect(phase.frame).toBe("f-4.png");
+  expect(phase.description).not.toContain(propertyLabels.filter);
+  expect(phase.description).toContain(propertyLabels["文字变化"]);
+});
+it("leaves restoration unknown when a changed descendant cannot be compared", () => {
+  const state = (active: boolean, child = true): VisualState => ({
+    nodes: [
+      node("#subject", active ? "blur(2px)" : "none"),
+      ...(child ? [node("#child", active ? "blur(2px)" : "none")] : []),
+    ],
+    floating: [],
+    animations: [],
+  });
+  const states = [state(false), state(true), state(false, false)];
+  const b = buildBehavior(states, framesFor(states), {
+    kind: "hover",
+    selector: "#subject",
+    activeIndex: 1,
+    exitIndex: 2,
+  });
+  expect(b.restoration).toBe("unknown");
+  expect(b.phases.find((p) => p.name === "after")?.description).not.toContain(
+    "回到了默认",
+  );
 });
