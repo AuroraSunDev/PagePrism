@@ -92,6 +92,18 @@
         properties.map((k) => [k, s.getPropertyValue(k)]),
       ),
       rect: { x: r.x, y: r.y, width: r.width, height: r.height },
+      timing: Object.fromEntries(
+        [
+          "transition-duration",
+          "transition-delay",
+          "transition-timing-function",
+          "animation-name",
+          "animation-duration",
+          "animation-delay",
+          "animation-timing-function",
+          "animation-iteration-count",
+        ].map((k) => [k, s.getPropertyValue(k)]),
+      ),
     };
   };
   const all = [...document.querySelectorAll("body *")].slice(0, 5000);

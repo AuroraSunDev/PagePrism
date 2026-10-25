@@ -48,9 +48,11 @@
     "background-color",
     "color",
     "transition-duration",
+    "transition-delay",
     "transition-timing-function",
     "animation-name",
     "animation-duration",
+    "animation-delay",
   ];
   const sample = (el) => ({
     selector: selector(el),
@@ -58,8 +60,16 @@
     label: (
       el.getAttribute("aria-label") ||
       el.querySelector("h1,h2,h3")?.textContent ||
-      el.textContent ||
-      el.tagName
+      el.textContent?.trim() ||
+      (el.matches("img,svg")
+        ? "图像"
+        : el.querySelector("img,svg")
+          ? "图像组件"
+          : el.matches("button")
+            ? "按钮"
+            : el.matches("a")
+              ? "链接"
+              : "交互区域")
     )
       .trim()
       .replace(/\s+/g, " ")

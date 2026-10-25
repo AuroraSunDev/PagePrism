@@ -60,3 +60,19 @@ it("preserves a transient middle state even when start and end match", () => {
 it("does not invent motion for a static sample sequence", () => {
   expect(inferChanges([state(), state()]).facts).toEqual([]);
 });
+it("keeps later meaningful values and identifies which participant changed", () => {
+  const a = state(),
+    b = state(),
+    c = state();
+  b.nodes[0].styles.transform = "matrix(1, 0, 0, 1, 0, 0)";
+  c.nodes[0].styles.transform = "matrix(1, 0, 0, 1, 0, -14)";
+  const change = inferChanges([a, b, c]);
+  expect(change.facts.find((f) => f.label === "transform")!.value).toContain(
+    "-14",
+  );
+  expect(
+    change.events.some(
+      (e) => e.selector === "#person" && e.property === "transform",
+    ),
+  ).toBe(true);
+});

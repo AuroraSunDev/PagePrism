@@ -27,6 +27,45 @@ export interface Fact {
   value: string;
   basis: "measured" | "observed" | "suggested";
 }
+export type ObservationKind =
+  "hover" | "automatic" | "scroll" | "entry" | "container";
+export interface CoverageCheck {
+  id: string;
+  kind: ObservationKind;
+  label: string;
+  selector?: string;
+  status: "pending" | "checked" | "blocked" | "limited";
+  outcome?: "change" | "no-change" | "uncertain";
+  attempts: number;
+  observedStates: string[];
+  findingIds: string[];
+  reason?: string;
+}
+export interface Behavior {
+  kind: ObservationKind;
+  participants: {
+    selector: string;
+    role: "target" | "child" | "pseudo" | "nearby";
+    label: string;
+    properties: string[];
+    firstSeenMs: number;
+  }[];
+  phases: {
+    name: "before" | "active" | "after";
+    frame: string;
+    elapsedMs: number;
+    description: string;
+  }[];
+  restoration: "restored" | "changed" | "unknown";
+  parameters: {
+    name: string;
+    value: string | null;
+    status: "observed" | "unknown";
+    source: string;
+    reason?: string;
+  }[];
+  interpretation: { status: "inferred"; summary: string; limitation: string };
+}
 export interface Finding {
   id: string;
   title: string;
@@ -43,6 +82,7 @@ export interface Finding {
   frames: Frame[];
   clip?: Clip;
   selector?: string;
+  behavior?: Behavior;
 }
 export interface ReportRun {
   version: 1;
@@ -62,6 +102,7 @@ export interface ReportRun {
     viewports: string[];
     actions: string[];
     limits: string[];
+    checks?: CoverageCheck[];
   };
   media: { video?: string; preview?: string; files: string[] };
   error?: string;
