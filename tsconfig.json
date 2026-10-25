@@ -17,6 +17,7 @@
     "server",
     "shared",
     "tests",
+    "evaluation",
     "vite.config.ts",
     "playwright.config.ts"
   ]

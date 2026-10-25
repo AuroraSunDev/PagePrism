@@ -12,7 +12,8 @@
     "test:integration": "vitest run tests/integration --maxWorkers=1",
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run test:integration",
-    "format": "prettier --check server shared src tests package.json tsconfig.json vite.config.ts playwright.config.ts index.html"
+    "format": "prettier --check server shared src tests evaluation package.json tsconfig.json vite.config.ts playwright.config.ts index.html",
+    "evaluate": "tsx evaluation/run.ts"
   },
   "engines": {
     "node": ">=22.12.0"

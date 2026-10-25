@@ -20,19 +20,19 @@
 ## Task 1 — 策略、证据与交互模型
 Files: shared/types.ts, shared/behavior.ts, server/observation-policy.ts, server/motion.ts, server/visual-state.js; tests/unit/policy.test.ts, tests/unit/behavior.test.ts, tests/unit/motion.test.ts.
 Interfaces: optional CoverageCheck[]/Behavior; ObservationPolicy discover/next/finish/finalize; change events indexed by selector/property; buildBehavior(states,frames,context).
-- [ ] 先写延迟时长、预算／补查顺序、中间状态与邻近自主文字反例，确认RED。
-- [ ] 实现有界策略、按参与者过滤变化和状态／参数来源，运行单元与类型检查GREEN，保存。
+- [x] 先写延迟时长、预算／补查顺序、中间状态与邻近自主文字反例，确认RED。
+- [x] 实现有界策略、按参与者过滤变化和状态／参数来源，运行单元与类型检查GREEN，保存。
 
 ## Task 2 — 接入采集、报告与交接
 Files: server/observe-motion.ts, server/browser-collector.js, server/analyze.ts, server/capture.ts, shared/export.ts, src/features/ReportView.tsx, src/styles.css; tests/integration/evidence.test.ts, tests/unit/export.test.ts, tests/e2e/workbench.spec.ts.
 Interfaces: capture emits unchanged Finding plus optional behavior and checks; shared behavior text/acceptance helpers used by report and export.
-- [ ] 先复现声明／脚本延迟、复合反馈与自主文字干扰，导出选中项和旧记录兼容；确认RED。
-- [ ] 接入补查、驻留提示、覆盖状态与组合说明；所有原有安全／取消用例保持GREEN。
-- [ ] 浏览器检查报告、覆盖折叠区、移动端与导出，保存。
+- [x] 先复现声明／脚本延迟、复合反馈与自主文字干扰，导出选中项和旧记录兼容；确认RED。
+- [x] 接入补查、驻留提示、覆盖状态与组合说明；所有原有安全／取消用例保持GREEN。
+- [x] 浏览器检查报告、覆盖折叠区、移动端与导出，保存。
 
 ## Task 3 — 质量对照与交付
 Files: evaluation/cases.ts, evaluation/run.ts, evaluation/README.md, package.json, README.md, docs/testing/2026-10-25-evidence-guided.md.
 Interfaces: gold expectations match observed trigger/target/property; JSON records scope/version/results/duration/false positives/structural completeness; runner accepts baseline source directory and candidate root.
-- [ ] 用独立8样例与冻结基线0b2480d对照，保留真实结果；金标由样例行为定义。
+- [x] 用独立8样例与冻结基线0b2480d对照，保留真实结果；金标由样例行为定义。
 - [ ] 公网参考复核并说明范围；完整单元／集成／E2E、构建、格式、diff验证。
 - [ ] 一次新上下文最终审查，重要项一次RED→GREEN修正；更新验证记录和交付。
